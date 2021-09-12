@@ -24,15 +24,21 @@ dependencies {
 - Create Class extend Application, and add to manifest android:name.
 ```xml
 <application
-    android:name=".App"
+    android:name=".App">
 </application>
 ```
 
 - On application oncreate, Initialize the tracker with call Tracker.init()
 
 ```kotlin
-Tracker.init(this, "https://asia-southeast2-idm-corp-dev.cloudfunctions.net",
+class App: Application() {
+    override fun onCreate() {
+        super.onCreate()
+
+        Tracker.init(this,"https://asia-southeast2-idm-corp-dev.cloudfunctions.net",
             "fT2vJnJu4dsxTRMphdHE3Z92uwjaBRztGR3ECdRQTEyDDZJGbvGu")
+    }
+}
 ```
 
 - Here is all static tracker method, call as Tracker.<mehtod_name>
@@ -42,8 +48,8 @@ Tracker.init(this, "https://asia-southeast2-idm-corp-dev.cloudfunctions.net",
 fun setUserId(userId: Long)
 
 fun trackPage(screenName: String)
- 
-fun trackPageDetail(name: String, detail: Any?) 
+
+fun trackPageDetail(name: String, detail: Any?)
 
 fun trackClick(name: String)
 
