@@ -15,7 +15,7 @@ allprojects {
 Add this to your app `build.gradle`:
 ```groovy
 dependencies {
-    implementation 'com.github.edstlib:tracker:latest'
+    implementation 'com.github.edtslib:tracker:latest'
 }
 ```
 
