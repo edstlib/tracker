@@ -41,6 +41,11 @@ class App: Application() {
 }
 ```
 
+if you're already using Koin on your application, you can call init on your application using this method
+```kotlin
+fun init(baseUrl: String, token: String, koin: KoinApplication) 
+```
+
 - Here is all static tracker method, call as Tracker.<mehtod_name>
 
 ```kotlin
