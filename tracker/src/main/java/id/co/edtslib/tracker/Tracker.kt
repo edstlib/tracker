@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.lifecycle.asLiveData
 import id.co.edtslib.tracker.di.*
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.KoinApplication
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
@@ -41,37 +42,27 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.createSession()?.observeForever {
                 tracker?.trackerViewModel?.trackStartApplication()?.observeForever {  }
             }
+        }
 
+        fun init(baseUrl: String, token: String, koin: KoinApplication) {
+            Tracker.baseUrl = baseUrl
+            Tracker.token = token
 
-            application
-                .registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
-                    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+            koin.modules(listOf(
+                networkingModule,
+                sharedPreferencesModule,
+                mainAppModule,
+                repositoryModule,
+                interactorModule,
+                viewModule
+            ))
 
-                    }
-
-                    override fun onActivityStarted(activity: Activity) {
-
-                    }
-
-                    override fun onActivityResumed(activity: Activity) {
-                    }
-
-                    override fun onActivityPaused(activity: Activity) {
-
-                    }
-
-                    override fun onActivityStopped(activity: Activity) {
-
-                    }
-
-                    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-
-                    }
-
-                    override fun onActivityDestroyed(activity: Activity) {
-
-                    }
-                })
+            if (tracker == null) {
+                tracker = Tracker()
+            }
+            tracker?.trackerViewModel?.createSession()?.observeForever {
+                tracker?.trackerViewModel?.trackStartApplication()?.observeForever {  }
+            }
         }
 
         fun setUserId(userId: Long) {
