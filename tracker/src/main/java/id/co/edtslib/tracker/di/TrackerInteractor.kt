@@ -1,7 +1,5 @@
 package id.co.edtslib.tracker.di
 
-import kotlinx.coroutines.flow.Flow
-
 class TrackerInteractor(private val repository: ITrackerRepository): TrackerUseCase {
     override fun createSession() = repository.createSession()
     override fun setUserId(userId: Long) = repository.setUserId(userId)
@@ -16,6 +14,7 @@ class TrackerInteractor(private val repository: ITrackerRepository): TrackerUseC
     override fun trackFilters(name: String, filters: List<String>) = repository.trackFilters(name, filters)
     override fun trackSort(name: String, sortType: String) = repository.trackSort(name, sortType)
 
+    override fun trackImpression(name: String, data: Any) = repository.trackImpression(name, data)
     override fun trackSubmission(name: String, status: Boolean, reason: String?) = repository.trackSubmission(name, status, reason)
 
 }

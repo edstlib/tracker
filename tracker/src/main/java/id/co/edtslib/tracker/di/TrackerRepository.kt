@@ -196,6 +196,28 @@ class TrackerRepository(
         }
     }
 
+    override fun trackImpression(name: String, data: Any) = flow {
+        val trackerCore = TrackerImpressionCore.create(name, data)
+        val trackerData = TrackerData(trackerCore,
+            TrackerUser.create(configurationLocalSource.getSessionId(),
+                configurationLocalSource.getUserId()),
+            localSource.apps, installReferrer)
+
+        val trackerDatas = TrackerDataList(mutableListOf(trackerData))
+
+        val response = remoteSource.send(trackerDatas)
+        when(response.status) {
+            Result.Status.SUCCESS -> emit(TrackerResponse(Gson().toJson(trackerData), response.data))
+            Result.Status.ERROR, Result.Status.UNAUTHORIZED -> {
+                localSource.add(trackerDatas)
+                emit(
+                    TrackerResponse(Gson().toJson(trackerData), null)
+                )
+            }
+            else -> {}
+        }
+    }
+
     override fun trackSubmission(
         name: String,
         status: Boolean,

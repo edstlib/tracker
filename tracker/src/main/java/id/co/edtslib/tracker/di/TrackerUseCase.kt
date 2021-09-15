@@ -17,6 +17,7 @@ interface TrackerUseCase {
     fun trackFilters(name: String, filters: List<String>): Flow<TrackerResponse>
     fun trackSort(name: String, sortType: String): Flow<TrackerResponse>
 
+    fun trackImpression(name: String, data: Any): Flow<TrackerResponse>
     fun trackSubmission(name: String, status: Boolean, reason: String?): Flow<TrackerResponse>
 
 }

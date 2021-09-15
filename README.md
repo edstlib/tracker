@@ -62,6 +62,8 @@ fun trackFilters(name: String, filters: List<String>)
 
 fun trackSort(name: String, sortType: String)
 
+fun trackImpression(name: String, data: Any)
+
 fun trackSubmissionSuccess(name: String)
 
 fun trackSubmissionFailed(name: String, reason: String?)
