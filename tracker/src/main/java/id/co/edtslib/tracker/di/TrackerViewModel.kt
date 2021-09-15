@@ -24,4 +24,8 @@ open class TrackerViewModel(
 
     fun trackSubmission(name: String, status: Boolean, reason: String?) =
         trackerUseCase.trackSubmission(name, status, reason).asLiveData()
+
+    fun trackImpression(name: String, data: Any) =
+        trackerUseCase.trackImpression(name, data).asLiveData()
+
 }

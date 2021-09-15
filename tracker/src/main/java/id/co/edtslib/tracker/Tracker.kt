@@ -140,5 +140,14 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.trackSubmission(name, false, reason)?.observeForever {  }
 
         }
+
+        fun trackImpression(name: String, data: Any) {
+            if (tracker == null) {
+                tracker = Tracker()
+            }
+
+            tracker?.trackerViewModel?.trackImpression(name, data)?.observeForever {  }
+
+        }
     }
 }
