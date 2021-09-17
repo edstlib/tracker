@@ -35,8 +35,8 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Tracker.init(this,"https://asia-southeast2-idm-corp-dev.cloudfunctions.net",
-            "fT2vJnJu4dsxTRMphdHE3Z92uwjaBRztGR3ECdRQTEyDDZJGbvGu")
+        Tracker.init(this, Tracker.init(this, TRACKER_API, TRACKER_TOKEN)
+    
     }
 }
 ```
