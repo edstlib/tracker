@@ -6,7 +6,7 @@ import retrofit2.http.POST
 
 interface TrackerApiService {
 
-    @POST("idmapps_tracker_gateway")
+    @POST("apps-tracker-gateway")
     suspend fun sendTracks(@Body track: TrackerDataList): Response<String>
 
 }
