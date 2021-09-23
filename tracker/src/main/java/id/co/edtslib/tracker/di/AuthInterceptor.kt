@@ -12,7 +12,7 @@ class AuthInterceptor(private val token: String) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder().addHeader(
-            " x-api-key", token).build()
+            "x-api-key", token).build()
         return chain.proceed(request)
     }
 }
