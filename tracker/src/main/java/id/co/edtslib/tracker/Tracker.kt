@@ -1,9 +1,6 @@
 package id.co.edtslib.tracker
 
-import android.app.Activity
 import android.app.Application
-import android.os.Bundle
-import androidx.lifecycle.asLiveData
 import id.co.edtslib.tracker.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinApplication
@@ -18,6 +15,7 @@ class Tracker private constructor(): KoinComponent {
         private var tracker: Tracker? = null
         var baseUrl = ""
         var token = ""
+        var debugging = false
 
         fun init(application: Application, baseUrl: String, token: String) {
             Tracker.baseUrl = baseUrl
