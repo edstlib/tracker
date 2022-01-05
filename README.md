@@ -71,3 +71,20 @@ fun trackSubmissionFailed(name: String, reason: String?)
 fun trackExitApplication()
 
 ```
+
+for set device class, add boolean resource to your res. here is example
+
+on strings.xml
+
+```
+<bool name="isTablet">false</bool>
+```
+
+on sw600dp/strings.xml
+
+
+```
+<bool name="isTablet">true</bool>
+```
+
+
