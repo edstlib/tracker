@@ -1,6 +1,11 @@
 package id.co.edtslib.tracker
 
 import android.app.Application
+import android.content.Context
+import android.content.Intent
+import com.android.installreferrer.api.InstallReferrerClient
+import com.android.installreferrer.api.InstallReferrerStateListener
+import id.co.edtslib.tracker.data.InstallReferer
 import id.co.edtslib.tracker.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinApplication
@@ -60,6 +65,42 @@ class Tracker private constructor(): KoinComponent {
             }
             tracker?.trackerViewModel?.createSession()?.observeForever {
                 tracker?.trackerViewModel?.trackStartApplication()?.observeForever {  }
+            }
+        }
+
+        fun checkInstallReferrer(context: Context, intent: Intent?) {
+            val referrerClient = InstallReferrerClient.newBuilder(context).build()
+            referrerClient.startConnection(object : InstallReferrerStateListener {
+
+                override fun onInstallReferrerSetupFinished(responseCode: Int) {
+                    when (responseCode) {
+                        InstallReferrerClient.InstallReferrerResponse.OK -> {
+                            checkInstallReferrer(referrerClient.installReferrer?.installReferrer!!,
+                                intent)
+                        }
+                        InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
+                            // API not available on the current Play Store app.
+                        }
+                        InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
+                            // Connection couldn't be established.
+                        }
+                    }
+                }
+
+                override fun onInstallReferrerServiceDisconnected() {
+                    // Try to restart the connection on the next request to
+                    // Google Play by calling the startConnection() method.
+                }
+            })
+        }
+
+        private fun checkInstallReferrer(utm_raw: String?, intent: Intent?) {
+            if (intent?.data?.getQueryParameter("utm_source") != null) {
+                tracker?.trackerViewModel?.setInstallReferer(InstallReferer(intent.data?.toString()))
+            }
+            else {
+
+                tracker?.trackerViewModel?.setInstallReferer(InstallReferer(utm_raw))
             }
         }
 

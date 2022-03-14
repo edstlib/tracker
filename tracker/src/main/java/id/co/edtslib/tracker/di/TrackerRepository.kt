@@ -10,13 +10,12 @@ class TrackerRepository(
     private val localSource: TrackerLocalDataSource,
     private val configurationLocalSource: ConfigurationLocalSource
 ) : ITrackerRepository {
-    private val installReferrer: InstallReferer? = null
     override fun createSession() = flow {
         val sessionId = String.format("%s-%d", UUID.randomUUID().toString(),
             Date().time)
         var configuration = configurationLocalSource.getCached()
         if (configuration == null) {
-            configuration = Configuration(sessionId, 0L)
+            configuration = Configuration(sessionId, 0L, null)
         }
         else {
             configuration.sessionId = sessionId
@@ -35,12 +34,21 @@ class TrackerRepository(
         emit(userId)
     }
 
+    override fun setInstallReferer(installReferer: InstallReferer) = flow {
+        val configuration = configurationLocalSource.getCached()
+        if (configuration != null) {
+            configuration.installReferer = installReferer
+        }
+        configurationLocalSource.save(configuration)
+        emit(true)
+    }
+
     override fun trackStartApplication() = flow {
         val trackerCore = TrackerActivityCore.createPageResume()
         val trackerData = TrackerData(trackerCore,
             TrackerUser.create(configurationLocalSource.getSessionId(),
                 configurationLocalSource.getUserId()),
-            localSource.apps, installReferrer)
+            localSource.apps, configurationLocalSource.getCached()?.installReferer)
 
         val trackerDataList = TrackerDataList(mutableListOf(trackerData))
 
@@ -62,7 +70,7 @@ class TrackerRepository(
         val trackerData = TrackerData(trackerCore
             , TrackerUser.create(configurationLocalSource.getSessionId(),
                 configurationLocalSource.getUserId())
-            , localSource.apps, installReferrer)
+            , localSource.apps, configurationLocalSource.getCached()?.installReferer)
 
         val trackerDatas = TrackerDataList(mutableListOf(trackerData))
 
@@ -84,7 +92,7 @@ class TrackerRepository(
             trackerCore,
             TrackerUser.create(configurationLocalSource.getSessionId(),
                 configurationLocalSource.getUserId()),
-            localSource.apps, installReferrer
+            localSource.apps, configurationLocalSource.getCached()?.installReferer
         )
 
         val trackerDataList = TrackerDataList(mutableListOf(trackerData))
@@ -113,7 +121,7 @@ class TrackerRepository(
         val trackerData = TrackerData(trackerCore,
             TrackerUser.create(configurationLocalSource.getSessionId(),
                 configurationLocalSource.getUserId()),
-            localSource.apps, installReferrer)
+            localSource.apps, configurationLocalSource.getCached()?.installReferer)
 
         val trackerDataList = TrackerDataList(mutableListOf(trackerData))
 
@@ -135,7 +143,7 @@ class TrackerRepository(
         val trackerData = TrackerData(trackerCore,
             TrackerUser.create(configurationLocalSource.getSessionId(),
                 configurationLocalSource.getUserId()),
-            localSource.apps, installReferrer)
+            localSource.apps, configurationLocalSource.getCached()?.installReferer)
 
         val trackerDatas = TrackerDataList(mutableListOf(trackerData))
 
@@ -157,7 +165,7 @@ class TrackerRepository(
         val trackerData = TrackerData(trackerCore
             , TrackerUser.create(configurationLocalSource.getSessionId(),
                 configurationLocalSource.getUserId())
-            , localSource.apps, installReferrer)
+            , localSource.apps, configurationLocalSource.getCached()?.installReferer)
 
         val trackerDatas = TrackerDataList(mutableListOf(trackerData))
 
@@ -179,7 +187,7 @@ class TrackerRepository(
         val trackerData = TrackerData(trackerCore
             , TrackerUser.create(configurationLocalSource.getSessionId(),
                 configurationLocalSource.getUserId())
-            , localSource.apps, installReferrer)
+            , localSource.apps, configurationLocalSource.getCached()?.installReferer)
 
         val trackerDatas = TrackerDataList(mutableListOf(trackerData))
 
@@ -201,7 +209,7 @@ class TrackerRepository(
         val trackerData = TrackerData(trackerCore,
             TrackerUser.create(configurationLocalSource.getSessionId(),
                 configurationLocalSource.getUserId()),
-            localSource.apps, installReferrer)
+            localSource.apps, configurationLocalSource.getCached()?.installReferer)
 
         val trackerDatas = TrackerDataList(mutableListOf(trackerData))
 
@@ -227,7 +235,7 @@ class TrackerRepository(
         val trackerData = TrackerData(trackerCore,
             TrackerUser.create(configurationLocalSource.getSessionId(),
                 configurationLocalSource.getUserId()),
-            localSource.apps, installReferrer)
+            localSource.apps, configurationLocalSource.getCached()?.installReferer)
 
         val trackerDatas = TrackerDataList(mutableListOf(trackerData))
 

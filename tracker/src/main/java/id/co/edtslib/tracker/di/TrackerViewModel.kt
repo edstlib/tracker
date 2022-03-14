@@ -2,12 +2,15 @@ package id.co.edtslib.tracker.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import id.co.edtslib.tracker.data.InstallReferer
 
 open class TrackerViewModel(
     private val trackerUseCase: TrackerUseCase
 ): ViewModel() {
     fun createSession() = trackerUseCase.createSession().asLiveData()
     fun setUserId(userId: Long) = trackerUseCase.setUserId(userId).asLiveData()
+    fun setInstallReferer(installReferer: InstallReferer) =
+        trackerUseCase.setInstallReferer(installReferer).asLiveData()
 
     fun trackStartApplication() = trackerUseCase.trackStartApplication().asLiveData()
     fun trackExitApplication() = trackerUseCase.trackExitApplication().asLiveData()

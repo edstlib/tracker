@@ -9,6 +9,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        Tracker.checkInstallReferrer(this, intent)
+
         Tracker.setUserId(8888)
         Tracker.trackPage("test lib")
     }
