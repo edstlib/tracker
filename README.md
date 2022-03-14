@@ -70,4 +70,8 @@ fun trackSubmissionFailed(name: String, reason: String?)
 
 fun trackExitApplication()
 
+fun checkInstallReferrer(context: Context, intent: Intent?)
+
+fun checkInstallReferrer(utm_raw: String?, intent: Intent?)
+
 ```
