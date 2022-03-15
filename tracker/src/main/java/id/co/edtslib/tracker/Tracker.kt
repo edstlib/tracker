@@ -3,6 +3,7 @@ package id.co.edtslib.tracker
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import androidx.fragment.app.FragmentActivity
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import id.co.edtslib.tracker.data.InstallReferer
@@ -68,15 +69,15 @@ class Tracker private constructor(): KoinComponent {
             }
         }
 
-        fun checkInstallReferrer(context: Context, intent: Intent?) {
-            val referrerClient = InstallReferrerClient.newBuilder(context).build()
+        fun checkInstallReferrer(activity: FragmentActivity) {
+            val referrerClient = InstallReferrerClient.newBuilder(activity).build()
             referrerClient.startConnection(object : InstallReferrerStateListener {
 
                 override fun onInstallReferrerSetupFinished(responseCode: Int) {
                     when (responseCode) {
                         InstallReferrerClient.InstallReferrerResponse.OK -> {
                             checkInstallReferrer(referrerClient.installReferrer?.installReferrer!!,
-                                intent)
+                                activity.intent)
                         }
                         InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
                             // API not available on the current Play Store app.
