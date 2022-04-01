@@ -1,15 +1,10 @@
 package id.co.edtslib.tracker.di
 
-import android.app.Application
 import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import id.co.edtslib.tracker.data.TrackerApps
-import id.co.edtslib.tracker.data.TrackerData
 import kotlinx.coroutines.flow.Flow
-import java.lang.Exception
 import java.util.*
 
 abstract class LocalDataSource<T>(private val sharedPreferences: SharedPreferences) {

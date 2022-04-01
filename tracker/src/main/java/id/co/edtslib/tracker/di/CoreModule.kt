@@ -23,7 +23,7 @@ val networkingModule = module {
 }
 
 val sharedPreferencesModule = module {
-    single {
+    single(named("trackerSharePref")) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val spec = KeyGenParameterSpec.Builder(
                 MasterKey.DEFAULT_MASTER_KEY_ALIAS,
