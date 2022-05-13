@@ -52,7 +52,7 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.6.0'
 
     //koin
     implementation "io.insert-koin:koin-core:3.1.2"
@@ -75,8 +75,8 @@ dependencies {
     implementation "com.scottyab:secure-preferences-lib:0.1.7"
 
     /* coroutines */
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1-native-mt"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1-native-mt"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
 
     implementation "com.android.installreferrer:installreferrer:2.2"
 
