@@ -15,11 +15,11 @@ import com.securepreferences.SecurePreferences
 import id.co.edtslib.tracker.Tracker
 
 val networkingModule = module {
-    single { provideOkHttpClient() }
+    single(named("trackerOkHttp")) { provideOkHttpClient() }
     single { provideGson() }
     single { provideGsonConverterFactory(get()) }
 
-    single(named("tracker")) { provideRetrofit(get(), get()) }
+    single(named("tracker")) { provideRetrofit(get(named("trackerOkHttp")), get()) }
 }
 
 val sharedPreferencesModule = module {
