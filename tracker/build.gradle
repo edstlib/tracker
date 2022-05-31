@@ -55,8 +55,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.0'
 
     //koin
-    implementation "io.insert-koin:koin-core:3.1.2"
-    implementation "io.insert-koin:koin-android:3.1.2"
+    implementation "io.insert-koin:koin-core:3.2.0"
+    implementation "io.insert-koin:koin-android:3.2.0"
 
     //lifecycle
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
@@ -65,8 +65,8 @@ dependencies {
     // Networking
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
-    implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.5"
-    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.5"
+    implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.7"
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.7"
     implementation "com.facebook.stetho:stetho:1.6.0"
     implementation "com.facebook.stetho:stetho-okhttp3:1.6.0"
 
@@ -75,8 +75,8 @@ dependencies {
     implementation "com.scottyab:secure-preferences-lib:0.1.7"
 
     /* coroutines */
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1-native-mt"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1-native-mt"
 
     implementation "com.android.installreferrer:installreferrer:2.2"
 
