@@ -13,6 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.securepreferences.SecurePreferences
 import id.co.edtslib.tracker.Tracker
+import org.koin.android.ext.koin.androidContext
 
 val networkingModule = module {
     single(named("trackerOkHttp")) { provideOkHttpClient() }
@@ -33,19 +34,19 @@ val sharedPreferencesModule = module {
                 .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
                 .setKeySize(MasterKey.DEFAULT_AES_GCM_MASTER_KEY_SIZE)
                 .build()
-            val masterKey = MasterKey.Builder(get())
+            val masterKey = MasterKey.Builder(androidContext())
                 .setKeyGenParameterSpec(spec)
                 .build()
 
             EncryptedSharedPreferences.create(
-                get(),
+                androidContext(),
                 "edts_tracker_secret_shared_prefs",
                 masterKey,
                 EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                 EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             )
         } else {
-            SecurePreferences(get())
+            SecurePreferences(androidContext())
         }
     }
 }

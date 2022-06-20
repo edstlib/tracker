@@ -1,7 +1,6 @@
 package id.co.edtslib.tracker
 
 import android.app.Application
-import android.content.Context
 import android.content.Intent
 import androidx.fragment.app.FragmentActivity
 import com.android.installreferrer.api.InstallReferrerClient
