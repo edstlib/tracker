@@ -13,6 +13,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.securepreferences.SecurePreferences
+import id.co.edtslib.tracker.BuildConfig
 import id.co.edtslib.tracker.Tracker
 import org.koin.android.ext.koin.androidContext
 import java.lang.Exception
@@ -28,6 +29,10 @@ val networkingModule = module {
 val sharedPreferencesModule = module {
     single(named("trackerSharePref")) {
         try {
+            if (Tracker.debugging) {
+                PreferenceManager.getDefaultSharedPreferences(androidContext())
+            }
+            else
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val spec = KeyGenParameterSpec.Builder(
                     MasterKey.DEFAULT_MASTER_KEY_ALIAS,
@@ -49,7 +54,11 @@ val sharedPreferencesModule = module {
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
                 )
             } else {
-                SecurePreferences(androidContext())
+                SecurePreferences(
+                    androidContext(),
+                    BuildConfig.DB_PASS,
+                    "edts_tracker_secret_shared_prefs"
+                )
             }
         }
 
