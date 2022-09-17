@@ -21,6 +21,7 @@ class Tracker private constructor(): KoinComponent {
         var baseUrl = ""
         var token = ""
         var debugging = false
+        var resend = true
 
         fun init(application: Application, baseUrl: String, token: String) {
             Tracker.baseUrl = baseUrl
