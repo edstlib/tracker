@@ -11,17 +11,19 @@ object ConnectivityUtil {
             for (networkInterface in networkInterfaces) {
                 for(address in networkInterface.inetAddresses) {
                     if (! address.isAnyLocalAddress) {
-                        val isIPv4 = address.hostAddress.indexOf(':') < 0
+                        val isIPv4 = address.hostAddress != null &&
+                                address.hostAddress!!.indexOf(':') < 0
                         if (useIPv4) {
                             if (isIPv4) return address.hostAddress
                         }
                         else {
                             if (! isIPv4) {
-                                val delim = address.hostAddress.indexOf('%') // drop ip6 zone suffix
-                                return if (delim < 0) address.hostAddress.uppercase(Locale.getDefault()) else address.hostAddress.substring(
+                                val delim = if (address.hostAddress == null) -1 else
+                                    address.hostAddress!!.indexOf('%') // drop ip6 zone suffix
+                                return if (delim < 0) address.hostAddress?.uppercase(Locale.getDefault()) else address.hostAddress?.substring(
                                     0,
                                     delim
-                                ).uppercase(Locale.getDefault())
+                                )?.uppercase(Locale.getDefault())
                             }
                         }
                     }
