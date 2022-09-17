@@ -10,6 +10,7 @@ data class TrackerPageDetailCore (
     val eventTimeStamp: Long,
     @SerializedName("page_name")
     val pageName: String,
+    @SerializedName("details")
     val details: Any?
 ) {
     companion object {
