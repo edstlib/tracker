@@ -74,17 +74,24 @@ class Tracker private constructor(): KoinComponent {
             referrerClient.startConnection(object : InstallReferrerStateListener {
 
                 override fun onInstallReferrerSetupFinished(responseCode: Int) {
-                    when (responseCode) {
-                        InstallReferrerClient.InstallReferrerResponse.OK -> {
-                            checkInstallReferrer(referrerClient.installReferrer?.installReferrer!!,
-                                activity.intent)
+                    try {
+                        when (responseCode) {
+                            InstallReferrerClient.InstallReferrerResponse.OK -> {
+                                checkInstallReferrer(
+                                    referrerClient.installReferrer?.installReferrer!!,
+                                    activity.intent
+                                )
+                            }
+                            InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
+                                // API not available on the current Play Store app.
+                            }
+                            InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
+                                // Connection couldn't be established.
+                            }
                         }
-                        InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
-                            // API not available on the current Play Store app.
-                        }
-                        InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
-                            // Connection couldn't be established.
-                        }
+                    }
+                    catch (ignore: RuntimeException) {
+
                     }
                 }
 
