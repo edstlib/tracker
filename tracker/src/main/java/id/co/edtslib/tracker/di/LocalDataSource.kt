@@ -15,15 +15,20 @@ abstract class LocalDataSource<T>(private val sharedPreferences: SharedPreferenc
     private fun getKeyTimeName() = getKeyName().plus("_expired")
 
     open fun save(data: T?) {
-        if (data == null) return
+        try {
+            if (data == null) return
 
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
-        editor.putString(getKeyName(), Gson().toJson(data))
-        if (expiredInterval() > 0) {
-            editor.putLong(getKeyTimeName(), Date().time)
+            editor.putString(getKeyName(), Gson().toJson(data))
+            if (expiredInterval() > 0) {
+                editor.putLong(getKeyTimeName(), Date().time)
+            }
+            editor.apply()
         }
-        editor.apply()
+        catch (ignore: OutOfMemoryError) {
+
+        }
     }
 
     open fun get(): Flow<T> {
