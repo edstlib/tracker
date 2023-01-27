@@ -24,6 +24,6 @@ interface TrackerUseCase {
     fun trackSubmission(name: String, status: Boolean, reason: String?, details: Any? = null): Flow<TrackerResponse>
 
     fun trackDisplayedItems(data: Any): Flow<TrackerResponse>
-    fun trackSearch(keyword: String): Flow<TrackerResponse>
+    fun trackSearch(keyword: String, details: Any? = null): Flow<TrackerResponse>
 
 }

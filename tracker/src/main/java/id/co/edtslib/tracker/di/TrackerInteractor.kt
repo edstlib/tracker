@@ -26,6 +26,6 @@ class TrackerInteractor(private val repository: ITrackerRepository): TrackerUseC
         repository.trackSubmission(name, status, reason, details)
 
     override fun trackDisplayedItems(data: Any) = repository.trackDisplayedItems(data)
-    override fun trackSearch(keyword: String) = repository.trackSearch(keyword)
+    override fun trackSearch(keyword: String, details: Any?) = repository.trackSearch(keyword, details)
 
 }

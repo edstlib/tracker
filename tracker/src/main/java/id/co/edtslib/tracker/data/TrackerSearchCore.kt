@@ -8,7 +8,7 @@ data class TrackerSearchCore (
     @SerializedName("event_name")
     val eventName: String,
     @SerializedName("event_timestamp")
-    val eventTimeStamp: Long,
+    val eventTimeStamp: String,
     @SerializedName("pageview_id")
     val pageViewId: String,
     @SerializedName("event_id")
@@ -23,7 +23,7 @@ data class TrackerSearchCore (
     companion object {
         fun create(keyword: String, details: Any? = null) =
             TrackerSearchCore(eventName = "user_search",
-                eventTimeStamp = Date().time,
+                eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
                 eventId = Tracker.eventId++,
                 pageName = Tracker.currentPageName,

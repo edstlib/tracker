@@ -346,9 +346,10 @@ class TrackerRepository(
     }
 
     override fun trackSearch(
-        keyword: String
+        keyword: String,
+        details: Any?
     ) = flow {
-        val trackerCore = TrackerSearchCore.create(keyword = keyword)
+        val trackerCore = TrackerSearchCore.create(keyword = keyword, details = details)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),

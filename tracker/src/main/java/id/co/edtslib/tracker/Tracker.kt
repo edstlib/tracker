@@ -216,12 +216,12 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.trackDisplayedItems(data)?.observeForever {  }
         }
 
-        fun trackSearch(keyword: String) {
+        fun trackSearch(keyword: String, details: Any? = null) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackSearch(keyword)?.observeForever {  }
+            tracker?.trackerViewModel?.trackSearch(keyword, details)?.observeForever {  }
         }
 
         fun resumePage(pageName: String, pageId: String) {
