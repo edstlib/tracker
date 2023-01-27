@@ -31,9 +31,7 @@ class TrackerRepository(
             configuration = Configuration(
                 sessionId = "",
                 userId = userId,
-                installReferer = null,
-                latitude = 0.0,
-                longitude = 0.0)
+                installReferer = null)
         }
 
         configuration.userId = userId
@@ -42,7 +40,7 @@ class TrackerRepository(
         emit(userId)
     }
 
-    override fun setLatLng(lat: Double, lng: Double) = flow {
+    override fun setLatLng(lat: Double?, lng: Double?) = flow {
         var configuration = configurationLocalSource.getCached()
         if (configuration == null) {
             configuration = Configuration(
@@ -66,9 +64,7 @@ class TrackerRepository(
             configuration = Configuration(
                 sessionId = "",
                 userId = 0L,
-                installReferer = installReferer,
-                latitude = 0.0,
-                longitude = 0.0)
+                installReferer = installReferer)
         }
         configuration.installReferer = installReferer
         configurationLocalSource.save(configuration)

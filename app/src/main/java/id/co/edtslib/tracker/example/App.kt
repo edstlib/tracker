@@ -7,7 +7,11 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Tracker.init(this,"https://asia-southeast2-idm-corp-dev.cloudfunctions.net",
-            "fT2vJnJu4dsxTRMphdHE3Z92uwjaBRztGR3ECdRQTEyDDZJGbvGu")
+        Tracker.appVersion = "1.0.0"
+        Tracker.debugging = true
+        Tracker.eventId = 1
+        Tracker.init(this, "https://us-central1-idm-klik-dwh-apollo-dev.cloudfunctions.net/klikidm_apollo_apps_tracker_gateway/",
+            "AIzaSyCOi2whcq-BY-93oJKmuj5cGLMm9PXyciQ")
+
     }
 }

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface TrackerUseCase {
     fun createSession(): Flow<String?>
     fun setUserId(userId: Long): Flow<Long>
-    fun setLatLng(lat: Double, lng: Double): Flow<Boolean>
+    fun setLatLng(lat: Double?, lng: Double?): Flow<Boolean>
     fun setInstallReferer(installReferer: InstallReferer): Flow<Boolean>
 
     fun trackStartApplication(): Flow<TrackerResponse>

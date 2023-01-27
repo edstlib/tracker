@@ -13,8 +13,6 @@ class ConfigurationLocalSource(sharedPreferences: SharedPreferences, app: Applic
     override fun getKeyName(): String = "configuration"
     override fun getValue(json: String): Configuration = Gson().fromJson(json, object : TypeToken<Configuration>() {}.type)
 
-    val apps = TrackerApps.create(app.applicationContext)
-
     override fun save(data: Configuration?) {
         configuration = data
         super.save(data)
@@ -39,14 +37,14 @@ class ConfigurationLocalSource(sharedPreferences: SharedPreferences, app: Applic
         return if (configuration?.userId == null) 0L else configuration.userId
     }
 
-    fun getLatitude(): Double {
+    fun getLatitude(): Double? {
         val configuration = getCached()
-        return if (configuration?.latitude == null) 0.0 else configuration.latitude
+        return configuration?.latitude
     }
 
-    fun getLongitude(): Double {
+    fun getLongitude(): Double? {
         val configuration = getCached()
-        return if (configuration?.longitude == null) 0.0 else configuration.longitude
+        return configuration?.longitude
     }
 
 }

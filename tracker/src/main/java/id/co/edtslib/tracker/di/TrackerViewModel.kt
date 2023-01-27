@@ -9,7 +9,7 @@ open class TrackerViewModel(
 ): ViewModel() {
     fun createSession() = trackerUseCase.createSession().asLiveData()
     fun setUserId(userId: Long) = trackerUseCase.setUserId(userId).asLiveData()
-    fun setLatLng(lat: Double, lng: Double) = trackerUseCase.setLatLng(lat, lng).asLiveData()
+    fun setLatLng(lat: Double?, lng: Double?) = trackerUseCase.setLatLng(lat, lng).asLiveData()
     fun setInstallReferer(installReferer: InstallReferer) =
         trackerUseCase.setInstallReferer(installReferer).asLiveData()
 

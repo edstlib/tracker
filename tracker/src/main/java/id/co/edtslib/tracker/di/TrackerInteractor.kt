@@ -5,7 +5,7 @@ import id.co.edtslib.tracker.data.InstallReferer
 class TrackerInteractor(private val repository: ITrackerRepository): TrackerUseCase {
     override fun createSession() = repository.createSession()
     override fun setUserId(userId: Long) = repository.setUserId(userId)
-    override fun setLatLng(lat: Double, lng: Double) = repository.setLatLng(lat, lng)
+    override fun setLatLng(lat: Double?, lng: Double?) = repository.setLatLng(lat, lng)
     override fun setInstallReferer(installReferer: InstallReferer) =
         repository.setInstallReferer(installReferer)
 

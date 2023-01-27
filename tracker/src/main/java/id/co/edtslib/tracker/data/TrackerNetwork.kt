@@ -23,7 +23,7 @@ data class TrackerNetwork (
 ) {
     companion object {
         @SuppressLint("HardwareIds")
-        fun create(latitude: Double, longitude: Double) : TrackerNetwork {
+        fun create(latitude: Double?, longitude: Double?) : TrackerNetwork {
             return TrackerNetwork(ipAddress = ConnectivityUtil.getIPAddress(true),
                 latitude = latitude,
                 longitude = longitude,
