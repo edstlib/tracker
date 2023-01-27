@@ -8,7 +8,7 @@ data class TrackerClickLinkCore (
     @SerializedName("event_name")
     val eventName: String,
     @SerializedName("event_timestamp")
-    val eventTimeStamp: Long,
+    val eventTimeStamp: String,
     @SerializedName("pageview_id")
     val pageViewId: String,
     @SerializedName("event_id")
@@ -18,17 +18,17 @@ data class TrackerClickLinkCore (
     @SerializedName("link_label")
     val linkName: String,
     @SerializedName("link_url")
-    val linkUrl: String,
+    val linkUrl: String?,
     @SerializedName("page_name")
     val pageName: String,
     @SerializedName("details")
     val details: Any?,
 ) {
     companion object {
-        fun create(name: String, details: Any? = null) =
+        fun create(name: String, url: String? = null, details: Any? = null) =
             TrackerClickLinkCore(eventName = "click_link",
-                eventTimeStamp = Date().time, pageViewId = Tracker.currentPageId,
+                eventTimeStamp = Date().time.toString(), pageViewId = Tracker.currentPageId,
                 eventId = Tracker.eventId++, eventCategory = "", linkName = name,
-                linkUrl = "", pageName = Tracker.currentPageName, details = details)
+                linkUrl = url, pageName = Tracker.currentPageName, details = details)
     }
 }

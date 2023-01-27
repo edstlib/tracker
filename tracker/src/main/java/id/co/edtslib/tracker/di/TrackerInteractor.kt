@@ -16,7 +16,8 @@ class TrackerInteractor(private val repository: ITrackerRepository): TrackerUseC
         repository.trackPage(pageName, pageId)
     override fun trackPageDetail(detail: Any?) = repository.trackPageDetail(detail)
 
-    override fun trackClick(name: String) = repository.trackClick(name)
+    override fun trackClick(name: String, url: String?, details: Any?) =
+        repository.trackClick(name, url, details)
     override fun trackFilters(filters: List<String>) = repository.trackFilters(filters)
     override fun trackSort(sortType: String) = repository.trackSort(sortType)
 

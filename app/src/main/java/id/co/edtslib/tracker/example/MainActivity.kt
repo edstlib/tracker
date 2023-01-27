@@ -11,7 +11,12 @@ class MainActivity : AppCompatActivity() {
 
         Tracker.checkInstallReferrer(this)
 
-        Tracker.setUserId(8888)
-        Tracker.trackPage("testlib7", "testlibaja7")
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Tracker.resumePage("testlib8", "testlibaja8")
+        Tracker.trackClick("click android tracker 1")
     }
 }
