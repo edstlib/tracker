@@ -19,6 +19,8 @@ data class TrackerApps (
     val deviceClassName: String,
     @SerializedName("device_family")
     val deviceFamilyName: String,
+    @SerializedName("os_timezone")
+    val osTimeZone: String,
     @SerializedName("app_version")
     val appVersion: String,
     @SerializedName("device_id")
@@ -57,7 +59,8 @@ data class TrackerApps (
                 deviceFamilyName = familyName,
                 appVersion = Tracker.appVersion,
                 deviceId = deviceID,
-                sourceName = "Android")
+                sourceName = "apps",
+                osTimeZone = TimeZone.getDefault().id)
         }
     }
 }
