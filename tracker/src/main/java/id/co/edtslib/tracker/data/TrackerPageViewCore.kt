@@ -24,13 +24,11 @@ data class TrackerPageViewCore (
 
 ) {
     companion object {
-        fun create(pageName: String, pageId: String): TrackerPageViewCore {
-            val time = Date().time
-            return TrackerPageViewCore(
-                eventName = "page_view", eventTimeStamp = time.toString(),
+        fun create(pageName: String, pageId: String) =
+            TrackerPageViewCore(
+                eventName = "page_view", eventTimeStamp = Date().time.toString(),
                 pageUrlPath = "", pageName = pageName, eventId = Tracker.eventId++,
                 pageViewId = pageId, previousPage = "", previousPageUrlPath = ""
             )
         }
-    }
 }
