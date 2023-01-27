@@ -48,7 +48,7 @@ class Tracker private constructor(): KoinComponent {
                 tracker = Tracker()
             }
             tracker?.trackerViewModel?.createSession()?.observeForever {
-                //tracker?.trackerViewModel?.trackStartApplication()?.observeForever {  }
+                tracker?.trackerViewModel?.trackStartApplication()?.observeForever {  }
             }
         }
 

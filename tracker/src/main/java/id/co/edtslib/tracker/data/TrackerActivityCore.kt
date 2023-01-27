@@ -8,7 +8,7 @@ data class TrackerActivityCore (
     @SerializedName("event_name")
     val eventName: String,
     @SerializedName("event_timestamp")
-    val eventTimeStamp: Long,
+    val eventTimeStamp: String,
     @SerializedName("pageview_id")
     val pageViewId: String,
     @SerializedName("event_id")
@@ -19,12 +19,12 @@ data class TrackerActivityCore (
     companion object {
         fun createPageResume() =
             TrackerActivityCore(eventName = "app_activity",
-                eventTimeStamp = Date().time, pageViewId = "resume_${Date().time}",
+                eventTimeStamp = Date().time.toString(), pageViewId = "resume_${Date().time}",
                 eventId = Tracker.eventId++, activityDetails = "resume_app")
 
         fun createPageExit() =
             TrackerActivityCore(eventName = "app_activity",
-                eventTimeStamp = Date().time, pageViewId = "resume_${Date().time}",
+                eventTimeStamp = Date().time.toString(), pageViewId = "exit_${Date().time}",
                 eventId = Tracker.eventId++, activityDetails = "exit_app")
 
     }
