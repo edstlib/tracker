@@ -8,7 +8,7 @@ data class TrackerDisplayedItemCore (
     @SerializedName("event_name")
     val eventName: String,
     @SerializedName("event_timestamp")
-    val eventTimeStamp: Long,
+    val eventTimeStamp: String,
     @SerializedName("pageview_id")
     val pageViewId: String,
     @SerializedName("event_id")
@@ -21,7 +21,7 @@ data class TrackerDisplayedItemCore (
     companion object {
         fun create(data: Any) =
             TrackerDisplayedItemCore(eventName = "displayed_item",
-                eventTimeStamp = Date().time,
+                eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
                 eventId = Tracker.eventId++,
                 pageName = Tracker.currentPageName,
