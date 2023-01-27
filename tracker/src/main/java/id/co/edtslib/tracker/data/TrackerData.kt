@@ -9,6 +9,8 @@ data class TrackerData(
     val user: TrackerUser?,
     @SerializedName("application")
     val application: TrackerApps?,
+    @SerializedName("network")
+    val network: TrackerNetwork?,
     @SerializedName("marketing")
     val marketing: InstallReferer?
 )

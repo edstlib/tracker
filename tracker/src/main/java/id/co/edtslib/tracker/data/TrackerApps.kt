@@ -7,6 +7,7 @@ import android.os.Build
 import android.provider.Settings
 import com.google.gson.annotations.SerializedName
 import id.co.edtslib.tracker.R
+import id.co.edtslib.tracker.Tracker
 import java.util.*
 
 data class TrackerApps (
@@ -21,7 +22,10 @@ data class TrackerApps (
     @SerializedName("app_version")
     val appVersion: String,
     @SerializedName("device_id")
-    val deviceId: String?
+    val deviceId: String?,
+    @SerializedName("source_name")
+    val sourceName: String?
+
 ) {
     companion object {
         @SuppressLint("HardwareIds")
@@ -47,7 +51,13 @@ data class TrackerApps (
                 deviceID = UUID.randomUUID().toString()
             }
 
-            return TrackerApps(osName, osCode, className, familyName, "1.0.0"/*abah RemoteConfig.getAppVersion()*/, deviceID)
+            return TrackerApps(osName = osName,
+                osVersion = osCode,
+                deviceClassName = className,
+                deviceFamilyName = familyName,
+                appVersion = Tracker.appVersion,
+                deviceId = deviceID,
+                sourceName = "Android")
         }
     }
 }

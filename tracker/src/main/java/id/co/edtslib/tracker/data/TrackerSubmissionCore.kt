@@ -1,6 +1,7 @@
 package id.co.edtslib.tracker.data
 
 import com.google.gson.annotations.SerializedName
+import id.co.edtslib.tracker.Tracker
 import java.util.*
 
 data class TrackerSubmissionCore (
@@ -8,16 +9,35 @@ data class TrackerSubmissionCore (
     val eventName: String,
     @SerializedName("event_timestamp")
     val eventTimeStamp: Long,
+    @SerializedName("pageview_id")
+    val pageViewId: String,
+    @SerializedName("event_id")
+    val eventId: Long,
     @SerializedName("event_label")
     val eventLabel: String,
+    @SerializedName("event_category")
+    val eventCategory: String,
+    @SerializedName("page_name")
+    val pageName: String,
     @SerializedName("event_status")
     val eventStatus: String,
     @SerializedName("failed_reason")
-    val eventFailedReason: String?
+    val eventFailedReason: String?,
+    @SerializedName("details")
+    val details: Any?
 ) {
     companion object {
-        fun create(screeName: String, status: Boolean, reason: String?) =
-            TrackerSubmissionCore("event_submission", Date().time,  screeName,
-                if (status) "success" else "failed", reason)
+        fun create(label: String, status: Boolean, reason: String?, details: Any? = null) =
+            TrackerSubmissionCore(eventName = "event_submission",
+                eventTimeStamp = Date().time,
+                pageViewId = Tracker.currentPageId,
+                eventId = Tracker.eventId++,
+                eventLabel = label,
+                eventCategory = "",
+                pageName = Tracker.currentPageName,
+                eventStatus = if (status) "success" else "failed",
+                eventFailedReason = reason,
+                details = details
+            )
     }
 }

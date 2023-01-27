@@ -38,4 +38,15 @@ class ConfigurationLocalSource(sharedPreferences: SharedPreferences, app: Applic
         val configuration = getCached()
         return if (configuration?.userId == null) 0L else configuration.userId
     }
+
+    fun getLatitude(): Double {
+        val configuration = getCached()
+        return if (configuration?.latitude == null) 0.0 else configuration.latitude
+    }
+
+    fun getLongitude(): Double {
+        val configuration = getCached()
+        return if (configuration?.longitude == null) 0.0 else configuration.longitude
+    }
+
 }

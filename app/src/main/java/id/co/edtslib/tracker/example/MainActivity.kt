@@ -12,6 +12,6 @@ class MainActivity : AppCompatActivity() {
         Tracker.checkInstallReferrer(this)
 
         Tracker.setUserId(8888)
-        Tracker.trackPage("test lib")
+        Tracker.trackPage("test lib", "adsdsds")
     }
 }

@@ -22,6 +22,10 @@ class Tracker private constructor(): KoinComponent {
         var token = ""
         var debugging = false
         var resend = true
+        var appVersion = "1.0.0"
+        var eventId = 0L
+        var currentPageName = ""
+        var currentPageId = ""
 
         fun init(application: Application, baseUrl: String, token: String) {
             Tracker.baseUrl = baseUrl
@@ -120,6 +124,14 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.setUserId(userId)?.observeForever {  }
         }
 
+        fun setLatLng(lat: Double, lng: Double) {
+            if (tracker == null) {
+                tracker = Tracker()
+            }
+
+            tracker?.trackerViewModel?.setLatLng(lat, lng)?.observeForever {  }
+        }
+
         fun trackExitApplication() {
             if (tracker == null) {
                 tracker = Tracker()
@@ -129,20 +141,20 @@ class Tracker private constructor(): KoinComponent {
         }
 
 
-        fun trackPage(screenName: String) {
+        fun trackPage(pageName: String, pageId: String) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackPage(screenName)?.observeForever {  }
+            tracker?.trackerViewModel?.trackPage(pageName, pageId)?.observeForever {  }
         }
 
-        fun trackPageDetail(name: String, detail: Any?) {
+        fun trackPageDetail(detail: Any?) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackPageDetail(name, detail)?.observeForever {  }
+            tracker?.trackerViewModel?.trackPageDetail(detail)?.observeForever {  }
         }
 
         fun trackClick(name: String) {
@@ -153,21 +165,21 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.trackClick(name)?.observeForever {  }
         }
 
-        fun trackFilters(name: String, filters: List<String>) {
+        fun trackFilters(filters: List<String>) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackFilters(name, filters)?.observeForever {  }
+            tracker?.trackerViewModel?.trackFilters(filters)?.observeForever {  }
 
         }
 
-        fun trackSort(name: String, sortType: String) {
+        fun trackSort(sortType: String) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackSort(name, sortType)?.observeForever {  }
+            tracker?.trackerViewModel?.trackSort(sortType)?.observeForever {  }
         }
 
         fun trackSubmissionSuccess(name: String) {
@@ -188,12 +200,33 @@ class Tracker private constructor(): KoinComponent {
 
         }
 
-        fun trackImpression(name: String, data: Any) {
+        fun trackImpression(data: Any) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackImpression(name, data)?.observeForever {  }
+            tracker?.trackerViewModel?.trackImpression(data)?.observeForever {  }
+        }
+
+        fun trackDisplayedItems(data: Any) {
+            if (tracker == null) {
+                tracker = Tracker()
+            }
+
+            tracker?.trackerViewModel?.trackDisplayedItems(data)?.observeForever {  }
+        }
+
+        fun trackSearch(keyword: String) {
+            if (tracker == null) {
+                tracker = Tracker()
+            }
+
+            tracker?.trackerViewModel?.trackSearch(keyword)?.observeForever {  }
+        }
+
+        fun resumePage(pageName: String, pageId: String) {
+            currentPageName = pageName
+            currentPageId = pageId
 
         }
     }

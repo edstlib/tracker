@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import id.co.edtslib.tracker.Tracker
 import java.util.*
 
-data class TrackerSortCore (
+data class TrackerSearchCore (
     @SerializedName("event_name")
     val eventName: String,
     @SerializedName("event_timestamp")
@@ -15,19 +15,19 @@ data class TrackerSortCore (
     val eventId: Long,
     @SerializedName("page_name")
     val pageName: String,
-    @SerializedName("sort_type")
-    val sortType: String
+    @SerializedName("search_input")
+    val keyword: String,
+    @SerializedName("details")
+    val details: Any?
 ) {
     companion object {
-        fun create(sortType: String) =
-            TrackerSortCore(eventName = "user_sort",
+        fun create(keyword: String, details: Any? = null) =
+            TrackerSearchCore(eventName = "user_search",
                 eventTimeStamp = Date().time,
                 pageViewId = Tracker.currentPageId,
                 eventId = Tracker.eventId++,
                 pageName = Tracker.currentPageName,
-                sortType = sortType)
-
-
+                keyword = keyword,
+                details = details)
     }
-
 }
