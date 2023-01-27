@@ -8,7 +8,7 @@ data class TrackerSortCore (
     @SerializedName("event_name")
     val eventName: String,
     @SerializedName("event_timestamp")
-    val eventTimeStamp: Long,
+    val eventTimeStamp: String,
     @SerializedName("pageview_id")
     val pageViewId: String,
     @SerializedName("event_id")
@@ -21,7 +21,7 @@ data class TrackerSortCore (
     companion object {
         fun create(sortType: String) =
             TrackerSortCore(eventName = "user_sort",
-                eventTimeStamp = Date().time,
+                eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
                 eventId = Tracker.eventId++,
                 pageName = Tracker.currentPageName,
