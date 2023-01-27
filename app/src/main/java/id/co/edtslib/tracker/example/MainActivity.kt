@@ -17,6 +17,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Tracker.resumePage("testlib8", "testlibaja8")
-        Tracker.trackSearch("test search")
+        Tracker.trackFilters(listOf("test sort"))
     }
 }
