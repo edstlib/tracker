@@ -17,6 +17,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Tracker.resumePage("testlib8", "testlibaja8")
-        Tracker.trackClick("click android tracker 2")
+        Tracker.trackSubmissionFailed("submission failed android tracker 1", "test aja")
     }
 }

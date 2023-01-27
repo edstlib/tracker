@@ -22,7 +22,8 @@ class TrackerInteractor(private val repository: ITrackerRepository): TrackerUseC
     override fun trackSort(sortType: String) = repository.trackSort(sortType)
 
     override fun trackImpression(data: Any) = repository.trackImpression(data)
-    override fun trackSubmission(name: String, status: Boolean, reason: String?) = repository.trackSubmission(name, status, reason)
+    override fun trackSubmission(name: String, status: Boolean, reason: String?, details: Any?) =
+        repository.trackSubmission(name, status, reason, details)
 
     override fun trackDisplayedItems(data: Any) = repository.trackDisplayedItems(data)
     override fun trackSearch(keyword: String) = repository.trackSearch(keyword)

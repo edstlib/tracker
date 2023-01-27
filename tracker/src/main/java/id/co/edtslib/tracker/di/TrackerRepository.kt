@@ -289,9 +289,10 @@ class TrackerRepository(
     override fun trackSubmission(
         name: String,
         status: Boolean,
-        reason: String?
+        reason: String?,
+        details: Any?
     ) = flow {
-        val trackerCore = TrackerSubmissionCore.create(name, status, reason)
+        val trackerCore = TrackerSubmissionCore.create(name, status, reason, details)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),

@@ -8,7 +8,7 @@ data class TrackerSubmissionCore (
     @SerializedName("event_name")
     val eventName: String,
     @SerializedName("event_timestamp")
-    val eventTimeStamp: Long,
+    val eventTimeStamp: String,
     @SerializedName("pageview_id")
     val pageViewId: String,
     @SerializedName("event_id")
@@ -29,7 +29,7 @@ data class TrackerSubmissionCore (
     companion object {
         fun create(label: String, status: Boolean, reason: String?, details: Any? = null) =
             TrackerSubmissionCore(eventName = "event_submission",
-                eventTimeStamp = Date().time,
+                eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
                 eventId = Tracker.eventId++,
                 eventLabel = label,

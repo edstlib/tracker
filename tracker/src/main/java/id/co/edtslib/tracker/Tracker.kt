@@ -182,21 +182,21 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.trackSort(sortType)?.observeForever {  }
         }
 
-        fun trackSubmissionSuccess(name: String) {
+        fun trackSubmissionSuccess(name: String, details: Any? = null) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackSubmission(name, true, "")?.observeForever {  }
+            tracker?.trackerViewModel?.trackSubmission(name, true, "", details)?.observeForever {  }
 
         }
 
-        fun trackSubmissionFailed(name: String, reason: String?) {
+        fun trackSubmissionFailed(name: String, reason: String?, details: Any? = null) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackSubmission(name, false, reason)?.observeForever {  }
+            tracker?.trackerViewModel?.trackSubmission(name, false, reason, details)?.observeForever {  }
 
         }
 
