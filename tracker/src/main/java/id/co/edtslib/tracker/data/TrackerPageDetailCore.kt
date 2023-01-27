@@ -8,7 +8,7 @@ data class TrackerPageDetailCore (
     @SerializedName("event_name")
     val eventName: String,
     @SerializedName("event_timestamp")
-    val eventTimeStamp: Long,
+    val eventTimeStamp: String,
     @SerializedName("pageview_id")
     val pageViewId: String,
     @SerializedName("event_id")
@@ -21,7 +21,7 @@ data class TrackerPageDetailCore (
     companion object {
         fun create(details: Any?) =
             TrackerPageDetailCore(eventName = "page_detail",
-                eventTimeStamp = Date().time,
+                eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
                 pageName = Tracker.currentPageName,
                 eventId = Tracker.eventId++,
