@@ -8,7 +8,7 @@ data class TrackerImpressionCore (
     @SerializedName("event_name")
     val eventName: String,
     @SerializedName("event_timestamp")
-    val eventTimeStamp: Long,
+    val eventTimeStamp: String,
     @SerializedName("pageview_id")
     val pageViewId: String,
     @SerializedName("event_id")
@@ -23,7 +23,7 @@ data class TrackerImpressionCore (
     companion object {
         fun create(data: Any) =
             TrackerImpressionCore(eventName = "user_impression",
-                eventTimeStamp = Date().time,
+                eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
                 eventId = Tracker.eventId++,
                 eventCategory = "",
