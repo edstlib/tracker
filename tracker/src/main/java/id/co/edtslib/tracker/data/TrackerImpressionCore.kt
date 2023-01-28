@@ -21,11 +21,11 @@ data class TrackerImpressionCore (
     val impressionList: MutableList<Any>
 ) {
     companion object {
-        fun create(data: Any) =
+        fun create(eventId: Long, data: Any) =
             TrackerImpressionCore(eventName = "user_impression",
                 eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
-                eventId = Tracker.eventId++,
+                eventId = eventId,
                 eventCategory = "",
                 pageName = Tracker.currentPageName,
                 impressionList = mutableListOf(data))

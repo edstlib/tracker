@@ -23,7 +23,6 @@ class Tracker private constructor(): KoinComponent {
         var debugging = false
         var resend = true
         var appVersion = "1.0.0"
-        var eventId = 0L
         var currentPageName = ""
         var currentPageId = ""
 
@@ -141,12 +140,12 @@ class Tracker private constructor(): KoinComponent {
         }
 
 
-        fun trackPage(pageName: String, pageId: String) {
+        fun trackPage(pageName: String, pageId: String, previousPage: String) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackPage(pageName, pageId)?.observeForever {  }
+            tracker?.trackerViewModel?.trackPage(pageName, pageId, previousPage)?.observeForever {  }
         }
 
         fun trackPageDetail(detail: Any?) {

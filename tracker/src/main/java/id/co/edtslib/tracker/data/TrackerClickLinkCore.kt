@@ -25,10 +25,10 @@ data class TrackerClickLinkCore (
     val details: Any?,
 ) {
     companion object {
-        fun create(name: String, url: String? = null, details: Any? = null) =
+        fun create(eventId: Long, name: String, url: String? = null, details: Any? = null) =
             TrackerClickLinkCore(eventName = "click_link",
                 eventTimeStamp = Date().time.toString(), pageViewId = Tracker.currentPageId,
-                eventId = Tracker.eventId++, eventCategory = "", linkName = name,
+                eventId = eventId, eventCategory = "", linkName = name,
                 linkUrl = url, pageName = Tracker.currentPageName, details = details)
     }
 }

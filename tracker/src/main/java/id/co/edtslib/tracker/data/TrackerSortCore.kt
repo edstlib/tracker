@@ -19,11 +19,11 @@ data class TrackerSortCore (
     val sortType: String
 ) {
     companion object {
-        fun create(sortType: String) =
+        fun create(eventId: Long, sortType: String) =
             TrackerSortCore(eventName = "user_sort",
                 eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
-                eventId = Tracker.eventId++,
+                eventId = eventId,
                 pageName = Tracker.currentPageName,
                 sortType = sortType)
 

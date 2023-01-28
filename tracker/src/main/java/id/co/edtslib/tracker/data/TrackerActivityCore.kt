@@ -1,7 +1,6 @@
 package id.co.edtslib.tracker.data
 
 import com.google.gson.annotations.SerializedName
-import id.co.edtslib.tracker.Tracker
 import java.util.*
 
 data class TrackerActivityCore (
@@ -17,15 +16,15 @@ data class TrackerActivityCore (
     val activityDetails: String
 ) {
     companion object {
-        fun createPageResume() =
+        fun createPageResume(eventId: Long) =
             TrackerActivityCore(eventName = "app_activity",
                 eventTimeStamp = Date().time.toString(), pageViewId = "resume_${Date().time}",
-                eventId = Tracker.eventId++, activityDetails = "resume_app")
+                eventId = eventId, activityDetails = "resume_app")
 
-        fun createPageExit() =
+        fun createPageExit(eventId: Long) =
             TrackerActivityCore(eventName = "app_activity",
                 eventTimeStamp = Date().time.toString(), pageViewId = "exit_${Date().time}",
-                eventId = Tracker.eventId++, activityDetails = "exit_app")
+                eventId = eventId, activityDetails = "exit_app")
 
     }
 

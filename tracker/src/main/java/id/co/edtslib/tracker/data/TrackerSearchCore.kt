@@ -21,11 +21,11 @@ data class TrackerSearchCore (
     val details: Any?
 ) {
     companion object {
-        fun create(keyword: String, details: Any? = null) =
+        fun create(eventId: Long, keyword: String, details: Any? = null) =
             TrackerSearchCore(eventName = "user_search",
                 eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
-                eventId = Tracker.eventId++,
+                eventId = eventId,
                 pageName = Tracker.currentPageName,
                 keyword = keyword,
                 details = details)

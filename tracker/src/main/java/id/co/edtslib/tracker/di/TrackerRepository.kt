@@ -73,7 +73,7 @@ class TrackerRepository(
     }
 
     override fun trackStartApplication() = flow {
-        val trackerCore = TrackerActivityCore.createPageResume()
+        val trackerCore = TrackerActivityCore.createPageResume(configurationLocalSource.getEventId())
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),
@@ -99,7 +99,7 @@ class TrackerRepository(
     }
 
     override fun trackExitApplication() = flow {
-        val trackerCore = TrackerActivityCore.createPageExit()
+        val trackerCore = TrackerActivityCore.createPageExit(configurationLocalSource.getEventId())
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),
@@ -123,8 +123,12 @@ class TrackerRepository(
         emit(true)
     }
 
-    override fun trackPage(pageName: String, pageId: String) = flow {
-        val trackerCore = TrackerPageViewCore.create(pageName, pageId)
+    override fun trackPage(pageName: String, pageId: String, previousPage: String) = flow {
+        val trackerCore = TrackerPageViewCore.create(
+            eventId = configurationLocalSource.getEventId(),
+            pageName = pageName,
+            pageId = pageId,
+            previousPage = previousPage)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),
@@ -157,7 +161,9 @@ class TrackerRepository(
     }
 
     override fun trackPageDetail(detail: Any?) = flow {
-        val trackerCore = TrackerPageDetailCore.create(detail)
+        val trackerCore = TrackerPageDetailCore.create(
+            eventId = configurationLocalSource.getEventId(),
+            details = detail)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),
@@ -183,7 +189,11 @@ class TrackerRepository(
     }
 
     override fun trackClick(name: String, url: String?, details: Any?) = flow {
-        val trackerCore = TrackerClickLinkCore.create(name, url, details)
+        val trackerCore = TrackerClickLinkCore.create(
+            eventId = configurationLocalSource.getEventId(),
+            name = name,
+            url = url,
+            details = details)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),
@@ -209,7 +219,9 @@ class TrackerRepository(
     }
 
     override fun trackFilters(filters: List<String>) = flow {
-        val trackerCore = TrackerFilterCore.create(filters)
+        val trackerCore = TrackerFilterCore.create(
+            eventId = configurationLocalSource.getEventId(),
+            list = filters)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),
@@ -235,7 +247,9 @@ class TrackerRepository(
     }
 
     override fun trackSort(sortType: String) = flow {
-        val trackerCore = TrackerSortCore.create(sortType)
+        val trackerCore = TrackerSortCore.create(
+            eventId = configurationLocalSource.getEventId(),
+            sortType = sortType)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),
@@ -261,7 +275,9 @@ class TrackerRepository(
     }
 
     override fun trackImpression(data: Any) = flow {
-        val trackerCore = TrackerImpressionCore.create(data)
+        val trackerCore = TrackerImpressionCore.create(
+            eventId = configurationLocalSource.getEventId(),
+            data = data)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),
@@ -292,7 +308,12 @@ class TrackerRepository(
         reason: String?,
         details: Any?
     ) = flow {
-        val trackerCore = TrackerSubmissionCore.create(name, status, reason, details)
+        val trackerCore = TrackerSubmissionCore.create(
+            eventId = configurationLocalSource.getEventId(),
+            label = name,
+            status = status,
+            reason = reason,
+            details = details)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),
@@ -320,7 +341,9 @@ class TrackerRepository(
     override fun trackDisplayedItems(
         data: Any
     ) = flow {
-        val trackerCore = TrackerDisplayedItemCore.create(data)
+        val trackerCore = TrackerDisplayedItemCore.create(
+            eventId = configurationLocalSource.getEventId(),
+            data = data)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),
@@ -349,7 +372,10 @@ class TrackerRepository(
         keyword: String,
         details: Any?
     ) = flow {
-        val trackerCore = TrackerSearchCore.create(keyword = keyword, details = details)
+        val trackerCore = TrackerSearchCore.create(
+            eventId = configurationLocalSource.getEventId(),
+            keyword = keyword,
+            details = details)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),

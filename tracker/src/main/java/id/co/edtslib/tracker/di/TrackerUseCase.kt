@@ -13,7 +13,7 @@ interface TrackerUseCase {
     fun trackStartApplication(): Flow<TrackerResponse>
     fun trackExitApplication(): Flow<Boolean>
 
-    fun trackPage(pageName: String, pageId: String): Flow<TrackerResponse>
+    fun trackPage(pageName: String, pageId: String, previousPage: String): Flow<TrackerResponse>
     fun trackPageDetail(detail: Any?): Flow<TrackerResponse>
 
     fun trackClick(name: String, url: String? = null, details: Any? = null): Flow<TrackerResponse>

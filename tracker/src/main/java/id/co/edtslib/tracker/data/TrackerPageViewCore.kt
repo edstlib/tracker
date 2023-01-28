@@ -1,7 +1,6 @@
 package id.co.edtslib.tracker.data
 
 import com.google.gson.annotations.SerializedName
-import id.co.edtslib.tracker.Tracker
 import java.util.*
 
 data class TrackerPageViewCore (
@@ -24,11 +23,16 @@ data class TrackerPageViewCore (
 
 ) {
     companion object {
-        fun create(pageName: String, pageId: String) =
+        fun create(eventId: Long, pageName: String, pageId: String, previousPage: String) =
             TrackerPageViewCore(
-                eventName = "page_view", eventTimeStamp = Date().time.toString(),
-                pageUrlPath = "", pageName = pageName, eventId = Tracker.eventId++,
-                pageViewId = pageId, previousPage = "", previousPageUrlPath = ""
+                eventName = "page_view",
+                eventTimeStamp = Date().time.toString(),
+                pageUrlPath = "",
+                pageName = pageName,
+                eventId = eventId,
+                pageViewId = pageId,
+                previousPage = previousPage,
+                previousPageUrlPath = ""
             )
         }
 }

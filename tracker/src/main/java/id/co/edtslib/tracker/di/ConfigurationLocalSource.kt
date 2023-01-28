@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import id.co.edtslib.tracker.data.Configuration
-import id.co.edtslib.tracker.data.TrackerApps
 
 class ConfigurationLocalSource(sharedPreferences: SharedPreferences, app: Application): LocalDataSource<Configuration>(sharedPreferences) {
     private var configuration: Configuration? = null
@@ -45,6 +44,19 @@ class ConfigurationLocalSource(sharedPreferences: SharedPreferences, app: Applic
     fun getLongitude(): Double? {
         val configuration = getCached()
         return configuration?.longitude
+    }
+
+    fun getEventId(): Long {
+        var configuration = getCached()
+        if (configuration == null) {
+            configuration = Configuration(sessionId = "",
+                userId = 0)
+            configuration.eventId = 0
+        }
+        configuration.eventId++
+        save(configuration)
+
+        return configuration.eventId
     }
 
 }

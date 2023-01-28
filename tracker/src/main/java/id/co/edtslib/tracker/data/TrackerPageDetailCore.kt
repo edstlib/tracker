@@ -19,12 +19,12 @@ data class TrackerPageDetailCore (
     val details: Any?
 ) {
     companion object {
-        fun create(details: Any?) =
+        fun create(eventId: Long, details: Any?) =
             TrackerPageDetailCore(eventName = "page_detail",
                 eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
                 pageName = Tracker.currentPageName,
-                eventId = Tracker.eventId++,
+                eventId = eventId,
                 details = details)
     }
 }

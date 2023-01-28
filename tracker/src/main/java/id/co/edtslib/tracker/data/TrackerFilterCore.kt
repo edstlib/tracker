@@ -21,11 +21,11 @@ data class TrackerFilterCore (
     val list: List<String>
 ) {
     companion object {
-        fun create(list: List<String>) =
+        fun create(eventId: Long, list: List<String>) =
             TrackerFilterCore(eventName = "user_filter",
                 eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
-                eventId = Tracker.eventId++,
+                eventId = eventId,
                 eventCategory = "",
                 pageName = Tracker.currentPageName,
                 list = list)
