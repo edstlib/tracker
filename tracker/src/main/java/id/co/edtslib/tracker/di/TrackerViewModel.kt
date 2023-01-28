@@ -21,8 +21,8 @@ open class TrackerViewModel(
     fun trackPageDetail(detail: Any?)=
         trackerUseCase.trackPageDetail(detail).asLiveData()
 
-    fun trackClick(name: String, url: String? = null, details: Any? = null) =
-        trackerUseCase.trackClick(name, url, details).asLiveData()
+    fun trackClick(name: String, category: String? = null, url: String? = null, details: Any? = null) =
+        trackerUseCase.trackClick(name, category, url, details).asLiveData()
     fun trackFilters(filters: List<String>) =
         trackerUseCase.trackFilters(filters).asLiveData()
     fun trackSort(sortType: String) =

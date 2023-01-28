@@ -17,7 +17,7 @@ interface ITrackerRepository {
     fun trackPage(pageName: String, pageId: String): Flow<TrackerResponse>
     fun trackPageDetail(detail: Any?): Flow<TrackerResponse>
 
-    fun trackClick(name: String, url: String? = null, details: Any? = null): Flow<TrackerResponse>
+    fun trackClick(name: String, category: String? = null, url: String? = null, details: Any? = null): Flow<TrackerResponse>
     fun trackFilters(filters: List<String>): Flow<TrackerResponse>
     fun trackSort(sortType: String): Flow<TrackerResponse>
 

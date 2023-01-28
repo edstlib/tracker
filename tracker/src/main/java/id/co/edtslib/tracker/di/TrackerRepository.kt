@@ -196,10 +196,11 @@ class TrackerRepository(
         }
     }
 
-    override fun trackClick(name: String, url: String?, details: Any?) = flow {
+    override fun trackClick(name: String, category: String?, url: String?, details: Any?) = flow {
         val trackerCore = TrackerClickLinkCore.create(
             eventId = configurationLocalSource.getEventId(),
             name = name,
+            category = category,
             url = url,
             details = details)
         val trackerData = TrackerData(

@@ -158,12 +158,12 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.trackPageDetail(detail)?.observeForever {  }
         }
 
-        fun trackClick(name: String, url: String? = null, details: Any? = null) {
+        fun trackClick(name: String, category: String? = null, url: String? = null, details: Any? = null) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackClick(name, url, details)?.observeForever {  }
+            tracker?.trackerViewModel?.trackClick(name, category, url, details)?.observeForever {  }
         }
 
         fun trackFilters(filters: List<String>) {
