@@ -23,6 +23,8 @@ class Tracker private constructor(): KoinComponent {
         var debugging = false
         var resend = true
         var appVersion = "1.0.0"
+
+        // don't set manual, set with resume fun
         var currentPageName = ""
         var currentPageId = ""
 
