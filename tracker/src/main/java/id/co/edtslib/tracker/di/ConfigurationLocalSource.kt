@@ -9,7 +9,7 @@ import id.co.edtslib.tracker.data.Configuration
 class ConfigurationLocalSource(sharedPreferences: SharedPreferences, app: Application): LocalDataSource<Configuration>(sharedPreferences) {
     private var configuration: Configuration? = null
 
-    override fun getKeyName(): String = "configuration"
+    override fun getKeyName(): String = "trackerConfiguration"
     override fun getValue(json: String): Configuration = Gson().fromJson(json, object : TypeToken<Configuration>() {}.type)
 
     override fun save(data: Configuration?) {
