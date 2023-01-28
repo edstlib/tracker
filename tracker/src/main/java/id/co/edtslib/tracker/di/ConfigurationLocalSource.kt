@@ -46,6 +46,21 @@ class ConfigurationLocalSource(sharedPreferences: SharedPreferences, app: Applic
         return configuration?.longitude
     }
 
+    fun getPreviousPageName(): String? {
+        val configuration = getCached()
+        return configuration?.previousPageName
+    }
+
+    fun setPreviousPageName(pageName: String) {
+        var configuration = getCached()
+        if (configuration == null) {
+            configuration = Configuration(sessionId = "",
+                userId = 0)
+        }
+        configuration.previousPageName = pageName
+        save(configuration)
+    }
+
     fun getEventId(): Long {
         var configuration = getCached()
         if (configuration == null) {

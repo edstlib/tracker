@@ -16,8 +16,8 @@ open class TrackerViewModel(
     fun trackStartApplication() = trackerUseCase.trackStartApplication().asLiveData()
     fun trackExitApplication() = trackerUseCase.trackExitApplication().asLiveData()
 
-    fun trackPage(pageName: String, pageId: String, previousPage: String) =
-        trackerUseCase.trackPage(pageName, pageId, previousPage).asLiveData()
+    fun trackPage(pageName: String, pageId: String) =
+        trackerUseCase.trackPage(pageName, pageId).asLiveData()
     fun trackPageDetail(detail: Any?)=
         trackerUseCase.trackPageDetail(detail).asLiveData()
 

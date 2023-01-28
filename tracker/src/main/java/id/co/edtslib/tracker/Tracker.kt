@@ -142,12 +142,12 @@ class Tracker private constructor(): KoinComponent {
         }
 
 
-        fun trackPage(pageName: String, pageId: String, previousPage: String) {
+        fun trackPage(pageName: String, pageId: String) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackPage(pageName, pageId, previousPage)?.observeForever {  }
+            tracker?.trackerViewModel?.trackPage(pageName, pageId)?.observeForever {  }
         }
 
         fun trackPageDetail(detail: Any?) {

@@ -6,5 +6,6 @@ data class Configuration (
     var installReferer: InstallReferer? = null,
     var latitude: Double? = null,
     var longitude: Double? = null,
-    var eventId: Long = 1
+    var eventId: Long = 1,
+    var previousPageName: String? = null
 )

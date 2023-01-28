@@ -12,8 +12,8 @@ class TrackerInteractor(private val repository: ITrackerRepository): TrackerUseC
     override fun trackStartApplication() = repository.trackStartApplication()
     override fun trackExitApplication() = repository.trackExitApplication()
 
-    override fun trackPage(pageName: String, pageId: String, previousPage: String) =
-        repository.trackPage(pageName, pageId, previousPage)
+    override fun trackPage(pageName: String, pageId: String) =
+        repository.trackPage(pageName, pageId)
     override fun trackPageDetail(detail: Any?) = repository.trackPageDetail(detail)
 
     override fun trackClick(name: String, url: String?, details: Any?) =
