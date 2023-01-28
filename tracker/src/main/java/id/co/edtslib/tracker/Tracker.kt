@@ -148,6 +148,7 @@ class Tracker private constructor(): KoinComponent {
             }
 
             tracker?.trackerViewModel?.trackPage(pageName, pageId)?.observeForever {  }
+            resumePage(pageName, pageId)
         }
 
         fun trackPageDetail(detail: Any?) {
