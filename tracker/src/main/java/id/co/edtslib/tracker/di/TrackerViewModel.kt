@@ -28,8 +28,8 @@ open class TrackerViewModel(
     fun trackSort(sortType: String) =
         trackerUseCase.trackSort(sortType).asLiveData()
 
-    fun trackSubmission(name: String, status: Boolean, reason: String?, details: Any? = null) =
-        trackerUseCase.trackSubmission(name, status, reason, details).asLiveData()
+    fun trackSubmission(name: String, category: String, status: Boolean, reason: String?, details: Any? = null) =
+        trackerUseCase.trackSubmission(name, category, status, reason, details).asLiveData()
 
     fun trackImpression(data: Any) =
         trackerUseCase.trackImpression(data).asLiveData()

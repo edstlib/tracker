@@ -312,6 +312,7 @@ class TrackerRepository(
 
     override fun trackSubmission(
         name: String,
+        category: String,
         status: Boolean,
         reason: String?,
         details: Any?
@@ -319,6 +320,7 @@ class TrackerRepository(
         val trackerCore = TrackerSubmissionCore.create(
             eventId = configurationLocalSource.getEventId(),
             label = name,
+            category = category,
             status = status,
             reason = reason,
             details = details)

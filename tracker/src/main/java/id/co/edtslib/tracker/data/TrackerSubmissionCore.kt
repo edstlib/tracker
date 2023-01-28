@@ -27,13 +27,13 @@ data class TrackerSubmissionCore (
     val details: Any?
 ) {
     companion object {
-        fun create(eventId: Long, label: String, status: Boolean, reason: String?, details: Any? = null) =
+        fun create(eventId: Long, label: String, category: String, status: Boolean, reason: String?, details: Any? = null) =
             TrackerSubmissionCore(eventName = "event_submission",
                 eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
                 eventId = eventId,
                 eventLabel = label,
-                eventCategory = "",
+                eventCategory = category,
                 pageName = Tracker.currentPageName,
                 eventStatus = if (status) "success" else "failed",
                 eventFailedReason = reason,
