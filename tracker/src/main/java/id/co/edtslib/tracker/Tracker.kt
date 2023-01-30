@@ -49,7 +49,7 @@ class Tracker private constructor(): KoinComponent {
                 tracker = Tracker()
             }
             tracker?.trackerViewModel?.createSession()?.observeForever {
-                tracker?.trackerViewModel?.trackStartApplication()?.observeForever {  }
+                tracker?.trackerViewModel?.trackOpenApplication()?.observeForever {  }
             }
         }
 
@@ -70,7 +70,7 @@ class Tracker private constructor(): KoinComponent {
                 tracker = Tracker()
             }
             tracker?.trackerViewModel?.createSession()?.observeForever {
-                tracker?.trackerViewModel?.trackStartApplication()?.observeForever {  }
+                tracker?.trackerViewModel?.trackOpenApplication()?.observeForever {  }
             }
         }
 
@@ -138,7 +138,7 @@ class Tracker private constructor(): KoinComponent {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackExitApplication()?.observeForever {  }
+            tracker?.trackerViewModel?.trackOpenApplication()?.observeForever {  }
         }
 
 
@@ -224,6 +224,30 @@ class Tracker private constructor(): KoinComponent {
             }
 
             tracker?.trackerViewModel?.trackSearch(keyword, details)?.observeForever {  }
+        }
+
+        fun trackCloseApplication() {
+            if (tracker == null) {
+                tracker = Tracker()
+            }
+
+            tracker?.trackerViewModel?.trackCloseApplication()?.observeForever {  }
+        }
+
+        fun trackResumeApplication() {
+            if (tracker == null) {
+                tracker = Tracker()
+            }
+
+            tracker?.trackerViewModel?.trackResumeApplication()?.observeForever {  }
+        }
+
+        fun trackMinimizeApplication() {
+            if (tracker == null) {
+                tracker = Tracker()
+            }
+
+            tracker?.trackerViewModel?.trackMinimizeApplication()?.observeForever {  }
         }
 
         fun resumePage(pageName: String, pageId: String) {

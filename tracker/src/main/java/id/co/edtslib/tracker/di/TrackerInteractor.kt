@@ -9,8 +9,7 @@ class TrackerInteractor(private val repository: ITrackerRepository): TrackerUseC
     override fun setInstallReferer(installReferer: InstallReferer) =
         repository.setInstallReferer(installReferer)
 
-    override fun trackStartApplication() = repository.trackStartApplication()
-    override fun trackExitApplication() = repository.trackExitApplication()
+    override fun trackApplication(eventName: String) = repository.trackApplication(eventName)
 
     override fun trackPage(pageName: String, pageId: String) =
         repository.trackPage(pageName, pageId)

@@ -74,34 +74,10 @@ class TrackerRepository(
         emit(true)
     }
 
-    override fun trackStartApplication() = flow {
-        val trackerCore = TrackerActivityCore.createPageResume(configurationLocalSource.getEventId())
-        val trackerData = TrackerData(
-            core = trackerCore,
-            user = TrackerUser.create(configurationLocalSource.getSessionId(),
-                configurationLocalSource.getUserId()),
-            application = localSource.apps,
-            network = TrackerNetwork.create(configurationLocalSource.getLatitude(),
-                configurationLocalSource.getLongitude()),
-            marketing = configurationLocalSource.getCached()?.installReferer)
-
-        val trackerDataList = TrackerDataList(mutableListOf(trackerData))
-
-        val response = remoteSource.send(trackerDataList)
-        when(response.status) {
-            Result.Status.SUCCESS -> emit(TrackerResponse(Gson().toJson(trackerData), response.data))
-            Result.Status.ERROR, Result.Status.UNAUTHORIZED -> {
-                localSource.add(trackerDataList)
-                emit(
-                    TrackerResponse(Gson().toJson(trackerData), null)
-                )
-            }
-            else -> {}
-        }
-    }
-
-    override fun trackExitApplication() = flow {
-        val trackerCore = TrackerActivityCore.createPageExit(configurationLocalSource.getEventId())
+    override fun trackApplication(eventName: String) = flow {
+        val trackerCore = TrackerActivityCore.createPageActivity(
+            eventId = configurationLocalSource.getEventId(),
+            eventName = eventName)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),

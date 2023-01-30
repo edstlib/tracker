@@ -11,8 +11,7 @@ interface ITrackerRepository {
 
     fun setInstallReferer(installReferer: InstallReferer): Flow<Boolean>
 
-    fun trackStartApplication(): Flow<TrackerResponse>
-    fun trackExitApplication(): Flow<Boolean>
+    fun trackApplication(eventName: String): Flow<Boolean>
 
     fun trackPage(pageName: String, pageId: String): Flow<TrackerResponse>
     fun trackPageDetail(detail: Any?): Flow<TrackerResponse>

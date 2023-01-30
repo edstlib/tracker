@@ -16,15 +16,11 @@ data class TrackerActivityCore (
     val activityDetails: String
 ) {
     companion object {
-        fun createPageResume(eventId: Long) =
+        fun createPageActivity(eventId: Long, eventName: String) =
             TrackerActivityCore(eventName = "app_activity",
-                eventTimeStamp = Date().time.toString(), pageViewId = "resume_${Date().time}",
-                eventId = eventId, activityDetails = "resume_app")
+                eventTimeStamp = Date().time.toString(), pageViewId = "${eventName}_${Date().time}",
+                eventId = eventId, activityDetails = eventName)
 
-        fun createPageExit(eventId: Long) =
-            TrackerActivityCore(eventName = "app_activity",
-                eventTimeStamp = Date().time.toString(), pageViewId = "exit_${Date().time}",
-                eventId = eventId, activityDetails = "exit_app")
 
     }
 
