@@ -13,10 +13,10 @@ open class TrackerViewModel(
     fun setInstallReferer(installReferer: InstallReferer) =
         trackerUseCase.setInstallReferer(installReferer).asLiveData()
 
-    fun trackOpenApplication() = trackerUseCase.trackApplication("open").asLiveData()
-    fun trackResumeApplication() = trackerUseCase.trackApplication("resume").asLiveData()
-    fun trackMinimizeApplication() = trackerUseCase.trackApplication("minimize").asLiveData()
-    fun trackCloseApplication() = trackerUseCase.trackApplication("close").asLiveData()
+    fun trackOpenApplication() = trackerUseCase.trackApplication("open_app").asLiveData()
+    fun trackResumeApplication() = trackerUseCase.trackApplication("resume_app").asLiveData()
+    fun trackMinimizeApplication() = trackerUseCase.trackApplication("minimize_app").asLiveData()
+    fun trackCloseApplication() = trackerUseCase.trackApplication("close_app").asLiveData()
 
     fun trackPage(pageName: String, pageId: String) =
         trackerUseCase.trackPage(pageName, pageId).asLiveData()
