@@ -1,6 +1,7 @@
 package id.co.edtslib.tracker.di
 
 import com.google.gson.Gson
+import id.co.edtslib.tracker.Tracker
 import id.co.edtslib.tracker.data.*
 import kotlinx.coroutines.flow.flow
 import java.util.*
@@ -77,7 +78,8 @@ class TrackerRepository(
     override fun trackApplication(eventName: String) = flow {
         val trackerCore = TrackerActivityCore.createPageActivity(
             eventId = configurationLocalSource.getEventId(),
-            eventName = eventName)
+            eventName = eventName,
+            pageViewId = Tracker.currentPageId)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),

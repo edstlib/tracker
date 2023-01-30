@@ -16,9 +16,9 @@ data class TrackerActivityCore (
     val activityDetails: String
 ) {
     companion object {
-        fun createPageActivity(eventId: Long, eventName: String) =
+        fun createPageActivity(eventId: Long, eventName: String, pageViewId: String) =
             TrackerActivityCore(eventName = "app_activity",
-                eventTimeStamp = Date().time.toString(), pageViewId = "${eventName}_${Date().time}",
+                eventTimeStamp = Date().time.toString(), pageViewId = pageViewId,
                 eventId = eventId, activityDetails = eventName)
 
 
