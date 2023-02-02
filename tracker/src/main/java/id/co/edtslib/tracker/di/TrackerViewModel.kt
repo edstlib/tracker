@@ -33,8 +33,8 @@ open class TrackerViewModel(
     fun trackSubmission(name: String, category: String, status: Boolean, reason: String?, details: Any? = null) =
         trackerUseCase.trackSubmission(name, category, status, reason, details).asLiveData()
 
-    fun trackImpression(data: Any) =
-        trackerUseCase.trackImpression(data).asLiveData()
+    fun trackImpression(category: String, data: Any) =
+        trackerUseCase.trackImpression(category, data).asLiveData()
 
     fun trackDisplayedItems(data: Any) =
         trackerUseCase.trackDisplayedItems(data).asLiveData()

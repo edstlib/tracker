@@ -133,15 +133,6 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.setLatLng(lat, lng)?.observeForever {  }
         }
 
-        fun trackExitApplication() {
-            if (tracker == null) {
-                tracker = Tracker()
-            }
-
-            tracker?.trackerViewModel?.trackOpenApplication()?.observeForever {  }
-        }
-
-
         fun trackPage(pageName: String, pageId: String) {
             if (tracker == null) {
                 tracker = Tracker()
@@ -202,12 +193,12 @@ class Tracker private constructor(): KoinComponent {
 
         }
 
-        fun trackImpression(data: Any) {
+        fun trackImpression(category: String, data: Any) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackImpression(data)?.observeForever {  }
+            tracker?.trackerViewModel?.trackImpression(category, data)?.observeForever {  }
         }
 
         fun trackDisplayedItems(data: Any) {
