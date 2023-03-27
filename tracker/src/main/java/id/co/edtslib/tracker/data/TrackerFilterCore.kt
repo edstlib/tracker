@@ -18,10 +18,10 @@ data class TrackerFilterCore (
     @SerializedName("page_name")
     val pageName: String,
     @SerializedName("filter_list")
-    val list: List<String>
+    val list: List<TrackerFilterDetail>
 ) {
     companion object {
-        fun create(eventId: Long, list: List<String>) =
+        fun create(eventId: Long, list: List<TrackerFilterDetail>) =
             TrackerFilterCore(eventName = "user_filter",
                 eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,

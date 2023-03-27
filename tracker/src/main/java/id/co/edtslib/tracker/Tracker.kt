@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import id.co.edtslib.tracker.data.InstallReferer
+import id.co.edtslib.tracker.data.TrackerFilterDetail
 import id.co.edtslib.tracker.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinApplication
@@ -158,7 +159,7 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.trackClick(name, category, url, details)?.observeForever {  }
         }
 
-        fun trackFilters(filters: List<String>) {
+        fun trackFilters(filters: List<TrackerFilterDetail>) {
             if (tracker == null) {
                 tracker = Tracker()
             }

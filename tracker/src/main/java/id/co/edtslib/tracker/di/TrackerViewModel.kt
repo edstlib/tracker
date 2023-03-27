@@ -3,6 +3,7 @@ package id.co.edtslib.tracker.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import id.co.edtslib.tracker.data.InstallReferer
+import id.co.edtslib.tracker.data.TrackerFilterDetail
 
 open class TrackerViewModel(
     private val trackerUseCase: TrackerUseCase
@@ -25,7 +26,7 @@ open class TrackerViewModel(
 
     fun trackClick(name: String, category: String? = null, url: String? = null, details: Any? = null) =
         trackerUseCase.trackClick(name, category, url, details).asLiveData()
-    fun trackFilters(filters: List<String>) =
+    fun trackFilters(filters: List<TrackerFilterDetail>) =
         trackerUseCase.trackFilters(filters).asLiveData()
     fun trackSort(sortType: String) =
         trackerUseCase.trackSort(sortType).asLiveData()

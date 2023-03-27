@@ -1,6 +1,7 @@
 package id.co.edtslib.tracker.di
 
 import id.co.edtslib.tracker.data.InstallReferer
+import id.co.edtslib.tracker.data.TrackerFilterDetail
 import id.co.edtslib.tracker.data.TrackerResponse
 import kotlinx.coroutines.flow.Flow
 
@@ -16,7 +17,7 @@ interface TrackerUseCase {
     fun trackPageDetail(detail: Any?): Flow<TrackerResponse>
 
     fun trackClick(name: String, category: String? = null, url: String? = null, details: Any? = null): Flow<TrackerResponse>
-    fun trackFilters(filters: List<String>): Flow<TrackerResponse>
+    fun trackFilters(filters: List<TrackerFilterDetail>): Flow<TrackerResponse>
     fun trackSort(sortType: String): Flow<TrackerResponse>
 
     fun trackImpression(category: String, data: Any): Flow<TrackerResponse>

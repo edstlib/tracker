@@ -1,6 +1,7 @@
 package id.co.edtslib.tracker.di
 
 import id.co.edtslib.tracker.data.InstallReferer
+import id.co.edtslib.tracker.data.TrackerFilterDetail
 
 class TrackerInteractor(private val repository: ITrackerRepository): TrackerUseCase {
     override fun createSession() = repository.createSession()
@@ -17,7 +18,7 @@ class TrackerInteractor(private val repository: ITrackerRepository): TrackerUseC
 
     override fun trackClick(name: String, category: String?, url: String?, details: Any?) =
         repository.trackClick(name, category, url, details)
-    override fun trackFilters(filters: List<String>) = repository.trackFilters(filters)
+    override fun trackFilters(filters: List<TrackerFilterDetail>) = repository.trackFilters(filters)
     override fun trackSort(sortType: String) = repository.trackSort(sortType)
 
     override fun trackImpression(category: String, data: Any) = repository.trackImpression(category, data)
