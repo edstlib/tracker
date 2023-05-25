@@ -40,6 +40,8 @@ open class TrackerViewModel(
         trackerUseCase.trackDisplayedItems(data).asLiveData()
 
     fun trackSearch(keyword: String, details: Any? = null) =
-        trackerUseCase.trackSearch(keyword,details).asLiveData()
+        trackerUseCase.trackSearch(keyword, details).asLiveData()
+
+    fun getData() = trackerUseCase.getData()
 
 }

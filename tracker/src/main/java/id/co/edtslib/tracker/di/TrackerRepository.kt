@@ -103,6 +103,21 @@ class TrackerRepository(
         emit(true)
     }
 
+    override fun getData(): TrackerData {
+        val user = TrackerUser.create(configurationLocalSource.getSessionId(),
+            configurationLocalSource.getUserId())
+        val application = localSource.apps
+        val marketing = configurationLocalSource.getCached()?.installReferer
+        val network = TrackerNetwork.create(configurationLocalSource.getLatitude(),
+            configurationLocalSource.getLongitude())
+
+        return TrackerData(core = false,
+            user = user,
+            application = application,
+            marketing = marketing,
+            network = network)
+    }
+
     override fun trackPage(pageName: String, pageId: String) = flow {
         val previousPageName = configurationLocalSource.getPreviousPageName()
 

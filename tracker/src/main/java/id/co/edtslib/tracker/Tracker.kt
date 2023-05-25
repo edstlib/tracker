@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import id.co.edtslib.tracker.data.InstallReferer
+import id.co.edtslib.tracker.data.TrackerData
 import id.co.edtslib.tracker.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinApplication
@@ -246,5 +247,14 @@ class Tracker private constructor(): KoinComponent {
             currentPageId = pageId
 
         }
+
+        fun getData(): TrackerData? {
+            if (tracker == null) {
+                tracker = Tracker()
+            }
+
+            return tracker?.trackerViewModel?.getData()
+        }
+
     }
 }

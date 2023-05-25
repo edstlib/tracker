@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         //Tracker.resumePage("testlib8", "testlibaja8")
         Tracker.trackPage("testlib11", "testlib11")
         Handler(Looper.myLooper()!!).postDelayed({
-            Tracker.trackPage("testlib12", "testlib12")
+            Tracker.trackSearch("lalali", "Login")
         }, 3000)
     }
 }
