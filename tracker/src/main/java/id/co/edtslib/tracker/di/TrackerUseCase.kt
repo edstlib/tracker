@@ -2,6 +2,7 @@ package id.co.edtslib.tracker.di
 
 import id.co.edtslib.tracker.data.InstallReferer
 import id.co.edtslib.tracker.data.TrackerFilterDetail
+import id.co.edtslib.tracker.data.TrackerData
 import id.co.edtslib.tracker.data.TrackerResponse
 import kotlinx.coroutines.flow.Flow
 
@@ -26,4 +27,5 @@ interface TrackerUseCase {
     fun trackDisplayedItems(data: Any): Flow<TrackerResponse>
     fun trackSearch(keyword: String, details: Any? = null): Flow<TrackerResponse>
 
+    fun getData(): TrackerData
 }
