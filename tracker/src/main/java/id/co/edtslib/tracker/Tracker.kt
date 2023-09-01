@@ -111,11 +111,11 @@ class Tracker private constructor(): KoinComponent {
 
         fun checkInstallReferrer(utm_raw: String?, intent: Intent?) {
             if (intent?.data?.getQueryParameter("utm_source") != null) {
-                tracker?.trackerViewModel?.setInstallReferer(InstallReferer(intent.data?.toString()))
+                tracker?.trackerViewModel?.setInstallReferer(InstallReferer(intent.data?.toString()))?.observeForever {  }
             }
             else {
 
-                tracker?.trackerViewModel?.setInstallReferer(InstallReferer(utm_raw))
+                tracker?.trackerViewModel?.setInstallReferer(InstallReferer(utm_raw))?.observeForever {  }
             }
         }
 
