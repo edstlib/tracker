@@ -209,6 +209,14 @@ class Tracker private constructor(): KoinComponent {
 
         }
 
+        fun trackImpression(category: String, data: List<*>) {
+            if (tracker == null) {
+                tracker = Tracker()
+            }
+
+            tracker?.trackerViewModel?.trackImpression(category, Date().time, data)?.observeForever {  }
+        }
+
         fun trackImpression(category: String, time: Long, data: List<*>) {
             if (tracker == null) {
                 tracker = Tracker()
