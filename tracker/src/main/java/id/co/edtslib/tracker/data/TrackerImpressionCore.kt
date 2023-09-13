@@ -18,16 +18,16 @@ data class TrackerImpressionCore (
     @SerializedName("page_name")
     val pageName: String,
     @SerializedName("impression_list")
-    val impressionList: MutableList<Any>
+    val impressionList: List<*>
 ) {
     companion object {
-        fun create(eventId: Long, category: String, data: Any) =
+        fun create(eventId: Long, category: String, time: Long, data: List<*>) =
             TrackerImpressionCore(eventName = "user_impression",
-                eventTimeStamp = Date().time.toString(),
+                eventTimeStamp = time.toString(),
                 pageViewId = Tracker.currentPageId,
                 eventId = eventId,
                 eventCategory = category,
                 pageName = Tracker.currentPageName,
-                impressionList = mutableListOf(data))
+                impressionList = data)
     }
 }

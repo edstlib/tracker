@@ -3,8 +3,13 @@ package id.co.edtslib.tracker
 import android.app.Application
 import android.content.Intent
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
+import id.co.edtslib.baserecyclerview.BaseRecyclerViewAdapter
+import id.co.edtslib.baserecyclerview2.BaseRecyclerView2
 import id.co.edtslib.tracker.data.InstallReferer
 import id.co.edtslib.tracker.data.TrackerFilterDetail
 import id.co.edtslib.tracker.data.TrackerData
@@ -14,9 +19,15 @@ import org.koin.core.KoinApplication
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
+import java.util.Date
 
 class Tracker private constructor(): KoinComponent {
     private val trackerViewModel: TrackerViewModel? by inject()
+
+    data class ImpressionData (
+        val data: Any,
+        val time: Long
+    )
 
     companion object {
         private var tracker: Tracker? = null
@@ -25,6 +36,9 @@ class Tracker private constructor(): KoinComponent {
         var debugging = false
         var resend = true
         var appVersion = "1.0.0"
+
+        private var firstImpression = -1
+        private var lastImpression = -1
 
         // don't set manual, set with resume fun
         var currentPageName = ""
@@ -195,12 +209,12 @@ class Tracker private constructor(): KoinComponent {
 
         }
 
-        fun trackImpression(category: String, data: Any) {
+        fun trackImpression(category: String, time: Long, data: List<*>) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackImpression(category, data)?.observeForever {  }
+            tracker?.trackerViewModel?.trackImpression(category, time, data)?.observeForever {  }
         }
 
         fun trackDisplayedItems(data: Any) {
@@ -257,5 +271,132 @@ class Tracker private constructor(): KoinComponent {
             return tracker?.trackerViewModel?.getData()
         }
 
+        fun setImpressionRecyclerView(category: String, recyclerView: RecyclerView) {
+            firstImpression = -1
+            lastImpression = -1
+
+            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        if (recyclerView.tag != null) {
+                            if (recyclerView.tag is List<*>) {
+                                val map = HashMap<Long, MutableList<Any>>()
+                                val list = recyclerView.tag as List<*>
+                                list.forEach {
+                                    if (it is ImpressionData) {
+                                        if (map.containsKey(it.time)) {
+                                            val l = map[it.time]
+                                            l?.add(it.data)
+                                        }
+                                        else {
+                                            map[it.time] = mutableListOf(it.data)
+                                        }
+                                    }
+                                }
+
+                                map.entries.forEach {
+                                    trackImpression(category = category,
+                                        time = it.key,
+                                        data = it.value)
+                                }
+                            }
+                        }
+                        recyclerView.tag = null
+                    }
+                }
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    if ((recyclerView.layoutManager is LinearLayoutManager || recyclerView.layoutManager is StaggeredGridLayoutManager) && (recyclerView.adapter is BaseRecyclerViewAdapter<*, *> || recyclerView.adapter is BaseRecyclerView2)) {
+
+                        val first: Int
+                        val last: Int
+                        if (recyclerView.layoutManager is LinearLayoutManager) {
+                            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                            first = layoutManager.findFirstVisibleItemPosition()
+                            last = layoutManager.findLastVisibleItemPosition()
+                        }
+                        else {
+                            val layoutManager = recyclerView.layoutManager as StaggeredGridLayoutManager
+                            first = layoutManager.findFirstVisibleItemPositions(null)[0]
+                            last = layoutManager.findLastVisibleItemPositions(null)[0]
+                        }
+
+
+                        if (firstImpression != first && lastImpression != last) {
+
+                            firstImpression = first
+                            lastImpression = last
+
+
+                            if (recyclerView.adapter is BaseRecyclerViewAdapter<*, *>) {
+                                addImpression(
+                                    recyclerView,
+                                    first,
+                                    last,
+                                    recyclerView.adapter as BaseRecyclerViewAdapter<*, *>
+                                )
+                            } else
+                                if (recyclerView.adapter is BaseRecyclerView2) {
+                                    addImpression(
+                                        recyclerView,
+                                        first,
+                                        last,
+                                        recyclerView.adapter as BaseRecyclerView2
+                                    )
+                                }
+                        }
+                    }
+                }
+            })
+        }
+
+        private fun addImpression(recyclerView: RecyclerView, first: Int, end: Int, adapter: BaseRecyclerViewAdapter<*, *>) {
+            val l = mutableListOf<Any>()
+            for (i in first until end) {
+                if (adapter.list[i] != null) {
+                    l.add(adapter.list[i]!!)
+                }
+            }
+
+            val newData = ImpressionData(data = l, time = Date().time)
+            if (recyclerView.tag == null) {
+                recyclerView.tag = listOf(newData)
+            }
+            else
+                if (recyclerView.tag is List<*>) {
+                    val list = (recyclerView.tag as List<ImpressionData>).toMutableList()
+                    list.add(newData)
+
+                    recyclerView.tag = list
+
+                }
+        }
+
+        private fun addImpression(recyclerView: RecyclerView, first: Int, end: Int, adapter: BaseRecyclerView2) {
+            val l = mutableListOf<Any>()
+            for (i in first until end) {
+                if (adapter.list[i].data != null) {
+                    l.add(adapter.list[i].data!!)
+                }
+            }
+
+            val newData = ImpressionData(data = l, time = Date().time)
+            if (recyclerView.tag == null) {
+                recyclerView.tag = listOf(newData)
+            }
+            else
+                if (recyclerView.tag is List<*>) {
+                    val list = (recyclerView.tag as List<ImpressionData>).toMutableList()
+                    list.add(newData)
+
+                    recyclerView.tag = list
+
+                }
+        }
     }
+
 }

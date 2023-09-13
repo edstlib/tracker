@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import id.co.edtslib.edtsds.list.menu.MenuListView
 import id.co.edtslib.tracker.Tracker
 import id.co.edtslib.tracker.data.TrackerFilterDetail
 
@@ -23,6 +24,15 @@ class MainActivity : AppCompatActivity() {
         filter.add(tracker)
         Tracker.trackFilters(filter)
 
+        val list = mutableListOf<String>()
+        for (i in 0 until 10001) {
+            list.add("abah $i")
+        }
+
+
+        val menuListView = findViewById<MenuListView<String>>(R.id.menuListView)
+        menuListView.data = list
+        Tracker.setImpressionRecyclerView("abah test", menuListView)
 
     }
 

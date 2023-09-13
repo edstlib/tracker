@@ -276,9 +276,10 @@ class TrackerRepository(
         }
     }
 
-    override fun trackImpression(category: String, data: Any) = flow {
+    override fun trackImpression(category: String, time: Long, data: List<*>) = flow {
         val trackerCore = TrackerImpressionCore.create(
             eventId = configurationLocalSource.getEventId(),
+            time = time,
             category= category,
             data = data)
         val trackerData = TrackerData(

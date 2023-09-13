@@ -22,7 +22,7 @@ interface ITrackerRepository {
     fun trackFilters(filters: List<TrackerFilterDetail>): Flow<TrackerResponse>
     fun trackSort(sortType: String): Flow<TrackerResponse>
 
-    fun trackImpression(category: String, data: Any): Flow<TrackerResponse>
+    fun trackImpression(category: String, time: Long, data: List<*>): Flow<TrackerResponse>
     fun trackSubmission(name: String, category: String, status: Boolean, reason: String?, details: Any? = null): Flow<TrackerResponse>
 
     fun trackDisplayedItems(data: Any): Flow<TrackerResponse>
