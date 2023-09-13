@@ -2,6 +2,7 @@ package id.co.edtslib.tracker
 
 import android.app.Application
 import android.content.Intent
+import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +26,7 @@ class Tracker private constructor(): KoinComponent {
     private val trackerViewModel: TrackerViewModel? by inject()
 
     data class ImpressionData (
-        val data: Any,
+        val data: List<Any>,
         val time: Long
     )
 
@@ -290,25 +291,17 @@ class Tracker private constructor(): KoinComponent {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                         if (recyclerView.tag != null) {
                             if (recyclerView.tag is List<*>) {
-                                val map = HashMap<Long, MutableList<Any>>()
                                 val list = recyclerView.tag as List<*>
                                 list.forEach {
                                     if (it is ImpressionData) {
-                                        if (map.containsKey(it.time)) {
-                                            val l = map[it.time]
-                                            l?.add(it.data)
-                                        }
-                                        else {
-                                            map[it.time] = mutableListOf(it.data)
-                                        }
+                                        trackImpression(
+                                            category = category,
+                                            time = it.time,
+                                            data = it.data
+                                        )
                                     }
                                 }
 
-                                map.entries.forEach {
-                                    trackImpression(category = category,
-                                        time = it.key,
-                                        data = it.value)
-                                }
                             }
                         }
                         recyclerView.tag = null
