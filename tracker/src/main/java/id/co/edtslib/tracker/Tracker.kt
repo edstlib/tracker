@@ -65,9 +65,6 @@ class Tracker private constructor(): KoinComponent {
             if (tracker == null) {
                 tracker = Tracker()
             }
-            tracker?.trackerViewModel?.createSession()?.observeForever {
-                tracker?.trackerViewModel?.trackOpenApplication()?.observeForever {  }
-            }
         }
 
         fun init(baseUrl: String, token: String, koin: KoinApplication) {
@@ -240,6 +237,12 @@ class Tracker private constructor(): KoinComponent {
             }
 
             tracker?.trackerViewModel?.trackSearch(keyword, details)?.observeForever {  }
+        }
+
+        fun trackOpenApplication() {
+            tracker?.trackerViewModel?.createSession()?.observeForever {
+                tracker?.trackerViewModel?.trackOpenApplication()?.observeForever {  }
+            }
         }
 
         fun trackCloseApplication() {
