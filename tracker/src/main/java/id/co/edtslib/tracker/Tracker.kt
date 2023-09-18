@@ -83,9 +83,6 @@ class Tracker private constructor(): KoinComponent {
             if (tracker == null) {
                 tracker = Tracker()
             }
-            tracker?.trackerViewModel?.createSession()?.observeForever {
-                tracker?.trackerViewModel?.trackOpenApplication()?.observeForever {  }
-            }
         }
 
         fun checkInstallReferrer(activity: FragmentActivity) {
