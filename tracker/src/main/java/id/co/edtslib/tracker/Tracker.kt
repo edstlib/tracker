@@ -2,7 +2,6 @@ package id.co.edtslib.tracker
 
 import android.app.Application
 import android.content.Intent
-import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -84,6 +83,8 @@ class Tracker private constructor(): KoinComponent {
                 tracker = Tracker()
             }
         }
+
+        fun getInstallReferer() =  tracker?.trackerViewModel?.getInstallReferer()
 
         fun checkInstallReferrer(activity: FragmentActivity) {
             val referrerClient = InstallReferrerClient.newBuilder(activity).build()

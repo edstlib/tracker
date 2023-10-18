@@ -11,6 +11,7 @@ interface TrackerUseCase {
     fun setUserId(userId: Long): Flow<Long>
     fun setLatLng(lat: Double?, lng: Double?): Flow<Boolean>
     fun setInstallReferer(installReferer: InstallReferer): Flow<Boolean>
+    fun getInstallReferer(): InstallReferer?
 
     fun trackApplication(eventName: String): Flow<Boolean>
 

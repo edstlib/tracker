@@ -14,6 +14,8 @@ open class TrackerViewModel(
     fun setInstallReferer(installReferer: InstallReferer) =
         trackerUseCase.setInstallReferer(installReferer).asLiveData()
 
+    fun getInstallReferer() = trackerUseCase.getInstallReferer()
+
     fun trackOpenApplication() = trackerUseCase.trackApplication("open_app").asLiveData()
     fun trackResumeApplication() = trackerUseCase.trackApplication("resume_app").asLiveData()
     fun trackMinimizeApplication() = trackerUseCase.trackApplication("minimize_app").asLiveData()

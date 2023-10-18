@@ -12,6 +12,7 @@ interface ITrackerRepository {
     fun setLatLng(lat: Double?, lng: Double?): Flow<Boolean>
 
     fun setInstallReferer(installReferer: InstallReferer): Flow<Boolean>
+    fun getInstallReferer(): InstallReferer?
 
     fun trackApplication(eventName: String): Flow<Boolean>
 

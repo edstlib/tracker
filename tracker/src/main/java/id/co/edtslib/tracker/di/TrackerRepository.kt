@@ -75,6 +75,11 @@ class TrackerRepository(
         emit(true)
     }
 
+    override fun getInstallReferer(): InstallReferer? {
+        val configuration = configurationLocalSource.getCached()
+        return configuration?.installReferer
+    }
+
     override fun trackApplication(eventName: String) = flow {
         val trackerCore = TrackerActivityCore.createPageActivity(
             eventId = configurationLocalSource.getEventId(),

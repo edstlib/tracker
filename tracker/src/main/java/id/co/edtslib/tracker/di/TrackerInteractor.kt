@@ -9,6 +9,8 @@ class TrackerInteractor(private val repository: ITrackerRepository): TrackerUseC
     override fun setLatLng(lat: Double?, lng: Double?) = repository.setLatLng(lat, lng)
     override fun setInstallReferer(installReferer: InstallReferer) =
         repository.setInstallReferer(installReferer)
+    override fun getInstallReferer() =
+        repository.getInstallReferer()
 
     override fun trackApplication(eventName: String) = repository.trackApplication(eventName)
 
