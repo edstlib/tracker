@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         //Tracker.resumePage("testlib8", "testlibaja8")
-        Tracker.trackPage("testlib11", "testlib11")
+        Tracker.trackPage("testlib11", "testlib11", "testlib11")
         Handler(Looper.myLooper()!!).postDelayed({
             Tracker.trackSearch("lalali", "Login")
         }, 3000)

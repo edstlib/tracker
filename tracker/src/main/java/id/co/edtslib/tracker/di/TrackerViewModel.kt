@@ -21,8 +21,8 @@ open class TrackerViewModel(
     fun trackMinimizeApplication() = trackerUseCase.trackApplication("minimize_app").asLiveData()
     fun trackCloseApplication() = trackerUseCase.trackApplication("close_app").asLiveData()
 
-    fun trackPage(pageName: String, pageId: String) =
-        trackerUseCase.trackPage(pageName, pageId).asLiveData()
+    fun trackPage(pageName: String, pageId: String, pageUrlPath: String) =
+        trackerUseCase.trackPage(pageName, pageId, pageUrlPath).asLiveData()
     fun trackPageDetail(detail: Any?)=
         trackerUseCase.trackPageDetail(detail).asLiveData()
 

@@ -7,5 +7,6 @@ data class Configuration (
     var latitude: Double? = null,
     var longitude: Double? = null,
     var eventId: Long = 1,
-    var previousPageName: String? = null
+    var previousPageName: String? = null,
+    var prevPageUrlPath: String? = null
 )

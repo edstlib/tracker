@@ -145,12 +145,12 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.setLatLng(lat, lng)?.observeForever {  }
         }
 
-        fun trackPage(pageName: String, pageId: String) {
+        fun trackPage(pageName: String, pageId: String, pageUrlPath: String = "") {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackPage(pageName, pageId)?.observeForever {  }
+            tracker?.trackerViewModel?.trackPage(pageName, pageId, pageUrlPath)?.observeForever {  }
             resumePage(pageName, pageId)
         }
 

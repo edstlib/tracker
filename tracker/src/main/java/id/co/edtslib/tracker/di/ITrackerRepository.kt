@@ -16,7 +16,7 @@ interface ITrackerRepository {
 
     fun trackApplication(eventName: String): Flow<Boolean>
 
-    fun trackPage(pageName: String, pageId: String): Flow<TrackerResponse>
+    fun trackPage(pageName: String, pageId: String, pageUrlPath: String): Flow<TrackerResponse>
     fun trackPageDetail(detail: Any?): Flow<TrackerResponse>
 
     fun trackClick(name: String, category: String? = null, url: String? = null, details: Any? = null): Flow<TrackerResponse>

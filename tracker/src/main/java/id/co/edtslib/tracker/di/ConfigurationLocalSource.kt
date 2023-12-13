@@ -61,6 +61,21 @@ class ConfigurationLocalSource(sharedPreferences: SharedPreferences, app: Applic
         save(configuration)
     }
 
+    fun getPrevPageUrlPath(): String? {
+        val configuration = getCached()
+        return configuration?.prevPageUrlPath
+    }
+
+    fun setPrevPageUrlPath(pageUrlPath: String) {
+        var configuration = getCached()
+        if (configuration == null) {
+            configuration = Configuration(sessionId = "",
+                userId = 0)
+        }
+        configuration.prevPageUrlPath = pageUrlPath
+        save(configuration)
+    }
+
     fun getEventId(): Long {
         var configuration = getCached()
         if (configuration == null) {

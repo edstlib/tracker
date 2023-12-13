@@ -123,14 +123,17 @@ class TrackerRepository(
             network = network)
     }
 
-    override fun trackPage(pageName: String, pageId: String) = flow {
+    override fun trackPage(pageName: String, pageId: String, pageUrlPath: String) = flow {
         val previousPageName = configurationLocalSource.getPreviousPageName()
+        val prevPageUrlPath = configurationLocalSource.getPrevPageUrlPath()
 
         val trackerCore = TrackerPageViewCore.create(
             eventId = configurationLocalSource.getEventId(),
             pageName = pageName,
             pageId = pageId,
-            previousPage = previousPageName ?: ""
+            previousPage = previousPageName ?: "",
+            pageUrlPath = pageUrlPath,
+            prevPageUrlPath = prevPageUrlPath ?: ""
         )
         val trackerData = TrackerData(
             core = trackerCore,
@@ -147,6 +150,7 @@ class TrackerRepository(
         val response = remoteSource.send(trackerDataList)
 
         configurationLocalSource.setPreviousPageName(pageName)
+        configurationLocalSource.setPrevPageUrlPath(pageUrlPath)
 
         when (response.status) {
             Result.Status.SUCCESS -> emit(

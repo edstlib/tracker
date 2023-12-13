@@ -23,16 +23,16 @@ data class TrackerPageViewCore (
 
 ) {
     companion object {
-        fun create(eventId: Long, pageName: String, pageId: String, previousPage: String) =
+        fun create(eventId: Long, pageName: String, pageId: String, previousPage: String, pageUrlPath: String, prevPageUrlPath: String) =
             TrackerPageViewCore(
                 eventName = "page_view",
                 eventTimeStamp = Date().time.toString(),
-                pageUrlPath = "",
+                pageUrlPath = pageUrlPath,
                 pageName = pageName,
                 eventId = eventId,
                 pageViewId = pageId,
                 previousPage = previousPage,
-                previousPageUrlPath = ""
+                previousPageUrlPath = prevPageUrlPath
             )
         }
 }
