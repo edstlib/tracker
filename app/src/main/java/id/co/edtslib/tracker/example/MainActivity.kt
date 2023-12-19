@@ -32,7 +32,9 @@ class MainActivity : AppCompatActivity() {
 
         val menuListView = findViewById<MenuListView<String>>(R.id.menuListView)
         menuListView.data = list
-        Tracker.setImpressionRecyclerView("abah test", menuListView)
+        Tracker.setImpressionRecyclerView("abah test", menuListView) { impressions ->
+            return@setImpressionRecyclerView impressions.map { imp -> (imp as String) + " manipulated" }
+        }
 
     }
 

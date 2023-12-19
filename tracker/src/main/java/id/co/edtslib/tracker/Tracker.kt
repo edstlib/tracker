@@ -205,20 +205,20 @@ class Tracker private constructor(): KoinComponent {
 
         }
 
-        fun trackImpression(category: String, data: List<*>) {
+        fun trackImpression(category: String, data: List<*>, mapper: ((data: List<*>) -> List<Any>)? = null) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackImpression(category, Date().time, data)?.observeForever {  }
+            tracker?.trackerViewModel?.trackImpression(category, Date().time, data, mapper)?.observeForever {  }
         }
 
-        fun trackImpression(category: String, time: Long, data: List<*>) {
+        fun trackImpression(category: String, time: Long, data: List<*>, mapper: ((data: List<*>) -> List<Any>)? = null) {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackImpression(category, time, data)?.observeForever {  }
+            tracker?.trackerViewModel?.trackImpression(category, time, data, mapper)?.observeForever {  }
         }
 
         fun trackDisplayedItems(data: MutableList<Any>) {
@@ -281,7 +281,7 @@ class Tracker private constructor(): KoinComponent {
             return tracker?.trackerViewModel?.getData()
         }
 
-        fun setImpressionRecyclerView(category: String, recyclerView: RecyclerView) {
+        fun setImpressionRecyclerView(category: String, recyclerView: RecyclerView, mapper: ((data: List<*>) -> List<Any>)? = null) {
             firstImpression = -1
             lastImpression = -1
 
@@ -298,7 +298,8 @@ class Tracker private constructor(): KoinComponent {
                                         trackImpression(
                                             category = category,
                                             time = it.time,
-                                            data = it.data
+                                            data = it.data,
+                                            mapper = mapper
                                         )
                                     }
                                 }
