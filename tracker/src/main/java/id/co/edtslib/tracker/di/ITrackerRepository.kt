@@ -26,7 +26,7 @@ interface ITrackerRepository {
     fun trackImpression(category: String, time: Long, data: List<*>): Flow<TrackerResponse>
     fun trackSubmission(name: String, category: String, status: Boolean, reason: String?, details: Any? = null): Flow<TrackerResponse>
 
-    fun trackDisplayedItems(data: Any): Flow<TrackerResponse>
+    fun trackDisplayedItems(data: MutableList<Any>): Flow<TrackerResponse>
     fun trackSearch(keyword: String, details: Any? = null): Flow<TrackerResponse>
 
     fun getData(): TrackerData

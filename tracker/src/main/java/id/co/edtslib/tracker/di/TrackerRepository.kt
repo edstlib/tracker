@@ -354,7 +354,7 @@ class TrackerRepository(
     }
 
     override fun trackDisplayedItems(
-        data: Any
+        data: MutableList<Any>
     ) = flow {
         val trackerCore = TrackerDisplayedItemCore.create(
             eventId = configurationLocalSource.getEventId(),

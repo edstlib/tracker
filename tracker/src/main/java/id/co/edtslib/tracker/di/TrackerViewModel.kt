@@ -39,7 +39,7 @@ open class TrackerViewModel(
     fun trackImpression(category: String, time: Long, data: List<*>) =
         trackerUseCase.trackImpression(category, time, data).asLiveData()
 
-    fun trackDisplayedItems(data: Any) =
+    fun trackDisplayedItems(data: MutableList<Any>) =
         trackerUseCase.trackDisplayedItems(data).asLiveData()
 
     fun trackSearch(keyword: String, details: Any? = null) =

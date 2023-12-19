@@ -19,12 +19,12 @@ data class TrackerDisplayedItemCore (
     val itemList: MutableList<Any>
 ) {
     companion object {
-        fun create(eventId: Long, data: Any) =
+        fun create(eventId: Long, data: MutableList<Any>) =
             TrackerDisplayedItemCore(eventName = "displayed_item",
                 eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
                 eventId = eventId,
                 pageName = Tracker.currentPageName,
-                itemList = mutableListOf(data))
+                itemList = data)
     }
 }

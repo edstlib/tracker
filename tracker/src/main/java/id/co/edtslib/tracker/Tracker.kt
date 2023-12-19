@@ -221,7 +221,7 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.trackImpression(category, time, data)?.observeForever {  }
         }
 
-        fun trackDisplayedItems(data: Any) {
+        fun trackDisplayedItems(data: MutableList<Any>) {
             if (tracker == null) {
                 tracker = Tracker()
             }
