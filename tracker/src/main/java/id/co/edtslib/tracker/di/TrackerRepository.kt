@@ -290,8 +290,7 @@ class TrackerRepository(
             eventId = configurationLocalSource.getEventId(),
             time = time,
             category= category,
-            data = data,
-            mapper = mapper)
+            data = mapper?.invoke(data) ?: data)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),

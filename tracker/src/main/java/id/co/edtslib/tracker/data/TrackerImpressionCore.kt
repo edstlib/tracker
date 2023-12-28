@@ -21,14 +21,14 @@ data class TrackerImpressionCore (
     val impressionList: List<*>
 ) {
     companion object {
-        fun create(eventId: Long, category: String, time: Long, data: List<*>, mapper: ((data: List<*>) -> List<Any>)? = null) =
+        fun create(eventId: Long, category: String, time: Long, data: List<*>) =
             TrackerImpressionCore(eventName = "user_impression",
                 eventTimeStamp = time.toString(),
                 pageViewId = Tracker.currentPageId,
                 eventId = eventId,
                 eventCategory = category,
                 pageName = Tracker.currentPageName,
-                impressionList = mapper?.invoke(data) ?: data
+                impressionList = data
             )
     }
 }
