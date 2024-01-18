@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         Tracker.trackFilters(filter)
 
         val list = mutableListOf<String>()
-        for (i in 0 until 10001) {
+        for (i in 0 until 1 + 1) {
             list.add("abah $i")
         }
 
