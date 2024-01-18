@@ -22,7 +22,7 @@ interface TrackerUseCase {
     fun trackFilters(filters: List<TrackerFilterDetail>): Flow<TrackerResponse>
     fun trackSort(sortType: String): Flow<TrackerResponse>
 
-    fun trackImpression(category: String, time: Long, data: List<*>, mapper: ((data: List<*>) -> List<Any>)? = null): Flow<TrackerResponse>
+    fun <S, T> trackImpression(category: String, time: Long, data: List<*>, mapper: ((data: S) -> T)? = null): Flow<TrackerResponse>
     fun trackSubmission(name: String, category: String, status: Boolean, reason: String?, details: Any? = null): Flow<TrackerResponse>
 
     fun trackDisplayedItems(data: MutableList<Any>): Flow<TrackerResponse>

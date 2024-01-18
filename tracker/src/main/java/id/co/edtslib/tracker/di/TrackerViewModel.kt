@@ -36,8 +36,8 @@ open class TrackerViewModel(
     fun trackSubmission(name: String, category: String, status: Boolean, reason: String?, details: Any? = null) =
         trackerUseCase.trackSubmission(name, category, status, reason, details).asLiveData()
 
-    fun trackImpression(category: String, time: Long, data: List<*>, mapper: ((data: List<*>) -> List<Any>)? = null) =
-        trackerUseCase.trackImpression(category, time, data, mapper).asLiveData()
+    fun <S, T> trackImpression(category: String, time: Long, data: List<*>, mapper: ((data: S) -> T)? = null) =
+        trackerUseCase.trackImpression<S, T>(category, time, data, mapper).asLiveData()
 
     fun trackDisplayedItems(data: MutableList<Any>) =
         trackerUseCase.trackDisplayedItems(data).asLiveData()

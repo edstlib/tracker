@@ -3,7 +3,6 @@ package id.co.edtslib.tracker.example
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import id.co.edtslib.edtsds.list.menu.MenuListView
 import id.co.edtslib.tracker.Tracker
@@ -33,10 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         val menuListView = findViewById<MenuListView<String>>(R.id.menuListView)
         menuListView.data = list
-        Tracker.setImpressionRecyclerView("abah test", menuListView) { impressions ->
-            val wasCalledFromBackgroundThread = Thread.currentThread().id != 1L
-            Log.d("DEBUG FADHIL", "wasCalledFromBackgroundThread=$wasCalledFromBackgroundThread")
-            return@setImpressionRecyclerView impressions.map { imp -> (imp as String) + " manipulated" }
+        Tracker.setImpressionRecyclerView<String?, String>("abah test", menuListView) { imp ->
+            return@setImpressionRecyclerView imp?.let { String.format("%s manipulated", it) } ?: "null"
         }
 
     }
