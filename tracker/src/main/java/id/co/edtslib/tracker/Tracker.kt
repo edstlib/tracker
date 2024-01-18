@@ -359,7 +359,7 @@ class Tracker private constructor(): KoinComponent {
 
         private fun addImpression(recyclerView: RecyclerView, first: Int, end: Int, adapter: BaseRecyclerViewAdapter<*, *>) {
             val l = mutableListOf<Any>()
-            for (i in first until end) {
+            for (i in first until end + 1) {
                 if (adapter.list[i] != null) {
                     l.add(adapter.list[i]!!)
                 }
@@ -381,7 +381,7 @@ class Tracker private constructor(): KoinComponent {
 
         private fun addImpression(recyclerView: RecyclerView, first: Int, end: Int, adapter: BaseRecyclerView2) {
             val l = mutableListOf<Any>()
-            for (i in first until end) {
+            for (i in first until end + 1) {
                 if (adapter.list[i].data != null) {
                     l.add(adapter.list[i].data!!)
                 }
