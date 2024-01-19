@@ -382,8 +382,9 @@ class Tracker private constructor(): KoinComponent {
         private fun addImpression(recyclerView: RecyclerView, first: Int, end: Int, adapter: BaseRecyclerView2) {
             val l = mutableListOf<Any>()
             for (i in first until end + 1) {
-                if (adapter.list[i].data != null) {
-                    l.add(adapter.list[i].data!!)
+                val realPosition = i % adapter.list.size
+                if (adapter.list[realPosition].data != null) {
+                    l.add(adapter.list[realPosition].data!!)
                 }
             }
 

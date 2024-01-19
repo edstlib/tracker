@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         Tracker.trackFilters(filter)
 
         val list = mutableListOf<String>()
-        for (i in 0 until 1 + 1) {
+        for (i in 0 until 100) {
             list.add("abah $i")
         }
 
@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         Tracker.setImpressionRecyclerView<String?, String>("abah test", menuListView) { imp ->
             return@setImpressionRecyclerView imp?.let { String.format("%s manipulated", it) } ?: "null"
         }
+
+        Tracker.trackImpression<String, String>("", list)
 
     }
 
