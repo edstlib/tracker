@@ -2,48 +2,118 @@ package id.co.edtslib.tracker.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import id.co.edtslib.tracker.data.InstallReferer
 import id.co.edtslib.tracker.data.TrackerFilterDetail
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 
 open class TrackerViewModel(
     private val trackerUseCase: TrackerUseCase
 ): ViewModel() {
     fun createSession() = trackerUseCase.createSession().asLiveData()
-    fun setUserId(userId: Long) = trackerUseCase.setUserId(userId).asLiveData()
-    fun setLatLng(lat: Double?, lng: Double?) = trackerUseCase.setLatLng(lat, lng).asLiveData()
-    fun setInstallReferer(installReferer: InstallReferer) =
-        trackerUseCase.setInstallReferer(installReferer).asLiveData()
+
+    fun setUserId(userId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.setUserId(userId).collect()
+        }
+    }
+
+    fun setLatLng(lat: Double?, lng: Double?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.setLatLng(lat, lng).collect()
+        }
+    }
+
+    fun setInstallReferer(installReferer: InstallReferer) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.setInstallReferer(installReferer).collect()
+        }
+    }
 
     fun getInstallReferer() = trackerUseCase.getInstallReferer()
 
-    fun trackOpenApplication() = trackerUseCase.trackApplication("open_app").asLiveData()
-    fun trackResumeApplication() = trackerUseCase.trackApplication("resume_app").asLiveData()
-    fun trackMinimizeApplication() = trackerUseCase.trackApplication("minimize_app").asLiveData()
-    fun trackCloseApplication() = trackerUseCase.trackApplication("close_app").asLiveData()
+    fun trackOpenApplication() {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.trackApplication("open_app").collect()
+        }
+    }
 
-    fun trackPage(pageName: String, pageId: String, pageUrlPath: String) =
-        trackerUseCase.trackPage(pageName, pageId, pageUrlPath).asLiveData()
-    fun trackPageDetail(detail: Any?)=
-        trackerUseCase.trackPageDetail(detail).asLiveData()
+    fun trackResumeApplication() {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.trackApplication("resume_app").collect()
+        }
+    }
 
-    fun trackClick(name: String, category: String? = null, url: String? = null, details: Any? = null) =
-        trackerUseCase.trackClick(name, category, url, details).asLiveData()
-    fun trackFilters(filters: List<TrackerFilterDetail>) =
-        trackerUseCase.trackFilters(filters).asLiveData()
-    fun trackSort(sortType: String) =
-        trackerUseCase.trackSort(sortType).asLiveData()
+    fun trackMinimizeApplication() {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.trackApplication("minimize_app").collect()
+        }
+    }
 
-    fun trackSubmission(name: String, category: String, status: Boolean, reason: String?, details: Any? = null) =
-        trackerUseCase.trackSubmission(name, category, status, reason, details).asLiveData()
+    fun trackCloseApplication() {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.trackApplication("close_app").collect()
+        }
+    }
 
-    fun <S, T> trackImpression(category: String, time: Long, data: List<*>, mapper: ((data: S) -> T)? = null) =
-        trackerUseCase.trackImpression<S, T>(category, time, data, mapper).asLiveData()
+    fun trackPage(pageName: String, pageId: String, pageUrlPath: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.trackPage(pageName, pageId, pageUrlPath).collect()
+        }
+    }
 
-    fun trackDisplayedItems(data: MutableList<Any>) =
-        trackerUseCase.trackDisplayedItems(data).asLiveData()
+    fun trackPageDetail(detail: Any?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.trackPageDetail(detail).collect()
+        }
+    }
 
-    fun trackSearch(keyword: String, details: Any? = null) =
-        trackerUseCase.trackSearch(keyword, details).asLiveData()
+    fun trackClick(name: String, category: String? = null, url: String? = null, details: Any? = null) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.trackClick(name, category, url, details).collect()
+        }
+    }
+
+    fun trackFilters(filters: List<TrackerFilterDetail>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.trackFilters(filters).collect()
+        }
+    }
+
+    fun trackSort(sortType: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.trackSort(sortType).collect()
+        }
+    }
+
+    fun trackSubmission(name: String, category: String, status: Boolean, reason: String?, details: Any? = null) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.trackSubmission(name, category, status, reason, details).collect()
+        }
+    }
+
+    fun <S, T> trackImpression(category: String, time: Long, data: List<*>, mapper: ((data: S) -> T)? = null) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.trackImpression<S, T>(category, time, data, mapper).collect()
+        }
+    }
+
+    fun trackDisplayedItems(data: MutableList<Any>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.trackDisplayedItems(data).collect()
+        }
+    }
+
+    fun trackSearch(keyword: String, details: Any? = null) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.trackSearch(keyword, details).collect()
+        }
+    }
 
     fun getData() = trackerUseCase.getData()
 
