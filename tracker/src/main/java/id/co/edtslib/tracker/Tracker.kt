@@ -170,12 +170,12 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.trackClick(name, category, url, details)
         }
 
-        fun trackFilters(filters: List<TrackerFilterDetail>) {
+        fun trackFilters(filters: List<TrackerFilterDetail>, category: String = "") {
             if (tracker == null) {
                 tracker = Tracker()
             }
 
-            tracker?.trackerViewModel?.trackFilters(filters)
+            tracker?.trackerViewModel?.trackFilters(filters, category)
 
         }
 

@@ -79,9 +79,9 @@ open class TrackerViewModel(
         }
     }
 
-    fun trackFilters(filters: List<TrackerFilterDetail>) {
+    fun trackFilters(filters: List<TrackerFilterDetail>, category: String = "") {
         viewModelScope.launch(Dispatchers.IO) {
-            trackerUseCase.trackFilters(filters).collect()
+            trackerUseCase.trackFilters(filters, category).collect()
         }
     }
 

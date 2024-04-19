@@ -19,7 +19,7 @@ interface TrackerUseCase {
     fun trackPageDetail(detail: Any?): Flow<TrackerResponse>
 
     fun trackClick(name: String, category: String? = null, url: String? = null, details: Any? = null): Flow<TrackerResponse>
-    fun trackFilters(filters: List<TrackerFilterDetail>): Flow<TrackerResponse>
+    fun trackFilters(filters: List<TrackerFilterDetail>, category: String = ""): Flow<TrackerResponse>
     fun trackSort(sortType: String): Flow<TrackerResponse>
 
     fun <S, T> trackImpression(category: String, time: Long, data: List<*>, mapper: ((data: S) -> T)? = null): Flow<TrackerResponse>

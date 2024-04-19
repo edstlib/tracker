@@ -229,10 +229,11 @@ class TrackerRepository(
         }
     }
 
-    override fun trackFilters(filters: List<TrackerFilterDetail>) = flow {
+    override fun trackFilters(filters: List<TrackerFilterDetail>, category: String) = flow {
         val trackerCore = TrackerFilterCore.create(
             eventId = configurationLocalSource.getEventId(),
-            list = filters)
+            list = filters,
+            category = category)
         val trackerData = TrackerData(
             core = trackerCore,
             user = TrackerUser.create(configurationLocalSource.getSessionId(),

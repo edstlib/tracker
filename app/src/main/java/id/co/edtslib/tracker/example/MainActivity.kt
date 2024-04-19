@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        Tracker.trackClick("aaa")
         Tracker.checkInstallReferrer(this)
 
         val filter = mutableListOf<TrackerFilterDetail>()
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             listOf("adasd", "gdfgdfgf")
         )
         filter.add(tracker)
-        Tracker.trackFilters(filter)
+        Tracker.trackFilters(filter, "test")
 
         val list = mutableListOf<String>()
         for (i in 0 until 100) {
