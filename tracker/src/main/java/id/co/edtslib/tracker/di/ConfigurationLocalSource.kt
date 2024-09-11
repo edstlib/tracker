@@ -6,11 +6,13 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import id.co.edtslib.tracker.data.Configuration
 
-class ConfigurationLocalSource(sharedPreferences: SharedPreferences, app: Application): LocalDataSource<Configuration>(sharedPreferences) {
+class ConfigurationLocalSource(sharedPreferences: SharedPreferences, app: Application) :
+    LocalDataSource<Configuration>(sharedPreferences) {
     private var configuration: Configuration? = null
 
     override fun getKeyName(): String = "trackerConfiguration"
-    override fun getValue(json: String): Configuration = Gson().fromJson(json, object : TypeToken<Configuration>() {}.type)
+    override fun getValue(json: String): Configuration =
+        Gson().fromJson(json, object : TypeToken<Configuration>() {}.type)
 
     override fun save(data: Configuration?) {
         configuration = data
@@ -54,8 +56,10 @@ class ConfigurationLocalSource(sharedPreferences: SharedPreferences, app: Applic
     fun setPreviousPageName(pageName: String) {
         var configuration = getCached()
         if (configuration == null) {
-            configuration = Configuration(sessionId = "",
-                userId = 0)
+            configuration = Configuration(
+                sessionId = "",
+                userId = 0
+            )
         }
         configuration.previousPageName = pageName
         save(configuration)
@@ -69,18 +73,39 @@ class ConfigurationLocalSource(sharedPreferences: SharedPreferences, app: Applic
     fun setPrevPageUrlPath(pageUrlPath: String) {
         var configuration = getCached()
         if (configuration == null) {
-            configuration = Configuration(sessionId = "",
-                userId = 0)
+            configuration = Configuration(
+                sessionId = "",
+                userId = 0
+            )
         }
         configuration.prevPageUrlPath = pageUrlPath
+        save(configuration)
+    }
+
+    fun getService(): String? {
+        val configuration = getCached()
+        return configuration?.service
+    }
+
+    fun setService(service: String) {
+        var configuration = getCached()
+        if (configuration == null) {
+            configuration = Configuration(
+                sessionId = "",
+                userId = 0,
+            )
+        }
+        configuration.service = service
         save(configuration)
     }
 
     fun getEventId(): Long {
         var configuration = getCached()
         if (configuration == null) {
-            configuration = Configuration(sessionId = "",
-                userId = 0)
+            configuration = Configuration(
+                sessionId = "",
+                userId = 0
+            )
             configuration.eventId = 0
         }
         configuration.eventId++

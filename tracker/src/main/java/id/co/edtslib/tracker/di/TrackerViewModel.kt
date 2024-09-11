@@ -7,14 +7,11 @@ import id.co.edtslib.tracker.data.InstallReferer
 import id.co.edtslib.tracker.data.TrackerFilterDetail
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
 
 open class TrackerViewModel(
     private val trackerUseCase: TrackerUseCase
-): ViewModel() {
+) : ViewModel() {
     fun createSession() = trackerUseCase.createSession().asLiveData()
 
     fun setUserId(userId: Long) {
@@ -36,6 +33,14 @@ open class TrackerViewModel(
     }
 
     fun getInstallReferer() = trackerUseCase.getInstallReferer()
+
+    fun setService(service: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackerUseCase.setService(service).collect()
+        }
+    }
+
+    fun getService() = trackerUseCase.getService()
 
     fun trackOpenApplication() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -73,7 +78,12 @@ open class TrackerViewModel(
         }
     }
 
-    fun trackClick(name: String, category: String? = null, url: String? = null, details: Any? = null) {
+    fun trackClick(
+        name: String,
+        category: String? = null,
+        url: String? = null,
+        details: Any? = null
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             trackerUseCase.trackClick(name, category, url, details).collect()
         }
@@ -91,13 +101,24 @@ open class TrackerViewModel(
         }
     }
 
-    fun trackSubmission(name: String, category: String, status: Boolean, reason: String?, details: Any? = null) {
+    fun trackSubmission(
+        name: String,
+        category: String,
+        status: Boolean,
+        reason: String?,
+        details: Any? = null
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             trackerUseCase.trackSubmission(name, category, status, reason, details).collect()
         }
     }
 
-    fun <S, T> trackImpression(category: String, time: Long, data: List<*>, mapper: ((data: S) -> T)? = null) {
+    fun <S, T> trackImpression(
+        category: String,
+        time: Long,
+        data: List<*>,
+        mapper: ((data: S) -> T)? = null
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             trackerUseCase.trackImpression<S, T>(category, time, data, mapper).collect()
         }

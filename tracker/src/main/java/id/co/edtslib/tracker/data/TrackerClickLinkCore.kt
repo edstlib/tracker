@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import id.co.edtslib.tracker.Tracker
 import java.util.*
 
-data class TrackerClickLinkCore (
+data class TrackerClickLinkCore(
     @SerializedName("event_name")
     val eventName: String,
     @SerializedName("event_timestamp")
@@ -23,18 +23,28 @@ data class TrackerClickLinkCore (
     val pageName: String,
     @SerializedName("details")
     val details: Any?,
+    @SerializedName("service")
+    val service: String
 ) {
     companion object {
-        fun create(eventId: Long, name: String, category: String? = null, url: String? = null, details: Any? = null) =
-            TrackerClickLinkCore(
-                eventName = "click_link",
-                eventTimeStamp = Date().time.toString(),
-                pageViewId = Tracker.currentPageId,
-                eventId = eventId,
-                eventCategory = category ?: "",
-                linkName = name,
-                linkUrl = url,
-                pageName = Tracker.currentPageName,
-                details = details)
+        fun create(
+            eventId: Long,
+            name: String,
+            category: String? = null,
+            url: String? = null,
+            details: Any? = null,
+            service: String
+        ) = TrackerClickLinkCore(
+            eventName = "click_link",
+            eventTimeStamp = Date().time.toString(),
+            pageViewId = Tracker.currentPageId,
+            eventId = eventId,
+            eventCategory = category ?: "",
+            linkName = name,
+            linkUrl = url,
+            pageName = Tracker.currentPageName,
+            details = details,
+            service = service
+        )
     }
 }

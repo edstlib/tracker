@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import id.co.edtslib.tracker.Tracker
 import java.util.*
 
-data class TrackerDisplayedItemCore (
+data class TrackerDisplayedItemCore(
     @SerializedName("event_name")
     val eventName: String,
     @SerializedName("event_timestamp")
@@ -16,15 +16,20 @@ data class TrackerDisplayedItemCore (
     @SerializedName("page_name")
     val pageName: String,
     @SerializedName("item_list")
-    val itemList: MutableList<Any>
+    val itemList: MutableList<Any>,
+    @SerializedName("service")
+    val service: String
 ) {
     companion object {
-        fun create(eventId: Long, data: MutableList<Any>) =
-            TrackerDisplayedItemCore(eventName = "displayed_item",
+        fun create(eventId: Long, data: MutableList<Any>, service: String) =
+            TrackerDisplayedItemCore(
+                eventName = "displayed_item",
                 eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
                 eventId = eventId,
                 pageName = Tracker.currentPageName,
-                itemList = data)
+                itemList = data,
+                service = service
+            )
     }
 }

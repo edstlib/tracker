@@ -11,9 +11,15 @@ import com.android.installreferrer.api.InstallReferrerStateListener
 import id.co.edtslib.baserecyclerview.BaseRecyclerViewAdapter
 import id.co.edtslib.baserecyclerview2.BaseRecyclerView2
 import id.co.edtslib.tracker.data.InstallReferer
-import id.co.edtslib.tracker.data.TrackerFilterDetail
 import id.co.edtslib.tracker.data.TrackerData
-import id.co.edtslib.tracker.di.*
+import id.co.edtslib.tracker.data.TrackerFilterDetail
+import id.co.edtslib.tracker.di.TrackerViewModel
+import id.co.edtslib.tracker.di.interactorModule
+import id.co.edtslib.tracker.di.mainAppModule
+import id.co.edtslib.tracker.di.networkingModule
+import id.co.edtslib.tracker.di.repositoryModule
+import id.co.edtslib.tracker.di.sharedPreferencesModule
+import id.co.edtslib.tracker.di.viewModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinApplication
 import org.koin.core.component.KoinComponent
@@ -21,10 +27,10 @@ import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 import java.util.Date
 
-class Tracker private constructor(): KoinComponent {
+class Tracker private constructor() : KoinComponent {
     private val trackerViewModel: TrackerViewModel? by inject()
 
-    data class ImpressionData (
+    data class ImpressionData(
         val data: List<Any>,
         val time: Long
     )
@@ -70,21 +76,23 @@ class Tracker private constructor(): KoinComponent {
             Tracker.baseUrl = baseUrl
             Tracker.token = token
 
-            koin.modules(listOf(
-                networkingModule,
-                sharedPreferencesModule,
-                mainAppModule,
-                repositoryModule,
-                interactorModule,
-                viewModule
-            ))
+            koin.modules(
+                listOf(
+                    networkingModule,
+                    sharedPreferencesModule,
+                    mainAppModule,
+                    repositoryModule,
+                    interactorModule,
+                    viewModule
+                )
+            )
 
             if (tracker == null) {
                 tracker = Tracker()
             }
         }
 
-        fun getInstallReferer() =  tracker?.trackerViewModel?.getInstallReferer()
+        fun getInstallReferer() = tracker?.trackerViewModel?.getInstallReferer()
 
         fun checkInstallReferrer(activity: FragmentActivity) {
             val referrerClient = InstallReferrerClient.newBuilder(activity).build()
@@ -99,15 +107,16 @@ class Tracker private constructor(): KoinComponent {
                                     activity.intent
                                 )
                             }
+
                             InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
                                 // API not available on the current Play Store app.
                             }
+
                             InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
                                 // Connection couldn't be established.
                             }
                         }
-                    }
-                    catch (ignore: RuntimeException) {
+                    } catch (ignore: RuntimeException) {
 
                     }
                 }
@@ -122,8 +131,7 @@ class Tracker private constructor(): KoinComponent {
         fun checkInstallReferrer(utm_raw: String?, intent: Intent?) {
             if (intent?.data?.getQueryParameter("utm_source") != null) {
                 tracker?.trackerViewModel?.setInstallReferer(InstallReferer(intent.data?.toString()))
-            }
-            else {
+            } else {
 
                 tracker?.trackerViewModel?.setInstallReferer(InstallReferer(utm_raw))
             }
@@ -145,6 +153,15 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.setLatLng(lat, lng)
         }
 
+        fun getService() = tracker?.trackerViewModel?.getService()
+        fun setService(service: String) {
+            if (tracker == null) {
+                tracker = Tracker()
+            }
+
+            tracker?.trackerViewModel?.setService(service)
+        }
+
         fun trackPage(pageName: String, pageId: String, pageUrlPath: String = "") {
             if (tracker == null) {
                 tracker = Tracker()
@@ -162,7 +179,12 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.trackPageDetail(detail)
         }
 
-        fun trackClick(name: String, category: String? = null, url: String? = null, details: Any? = null) {
+        fun trackClick(
+            name: String,
+            category: String? = null,
+            url: String? = null,
+            details: Any? = null
+        ) {
             if (tracker == null) {
                 tracker = Tracker()
             }
@@ -196,7 +218,12 @@ class Tracker private constructor(): KoinComponent {
 
         }
 
-        fun trackSubmissionFailed(name: String, category: String, reason: String?, details: Any? = null) {
+        fun trackSubmissionFailed(
+            name: String,
+            category: String,
+            reason: String?,
+            details: Any? = null
+        ) {
             if (tracker == null) {
                 tracker = Tracker()
             }
@@ -205,7 +232,11 @@ class Tracker private constructor(): KoinComponent {
 
         }
 
-        fun <S, T> trackImpression(category: String, data: List<*>, mapper: ((data: S) -> T)? = null) {
+        fun <S, T> trackImpression(
+            category: String,
+            data: List<*>,
+            mapper: ((data: S) -> T)? = null
+        ) {
             if (tracker == null) {
                 tracker = Tracker()
             }
@@ -213,7 +244,12 @@ class Tracker private constructor(): KoinComponent {
             tracker?.trackerViewModel?.trackImpression<S, T>(category, Date().time, data, mapper)
         }
 
-        fun <S, T> trackImpression(category: String, time: Long, data: List<*>, mapper: ((data: S) -> T)? = null) {
+        fun <S, T> trackImpression(
+            category: String,
+            time: Long,
+            data: List<*>,
+            mapper: ((data: S) -> T)? = null
+        ) {
             if (tracker == null) {
                 tracker = Tracker()
             }
@@ -281,7 +317,11 @@ class Tracker private constructor(): KoinComponent {
             return tracker?.trackerViewModel?.getData()
         }
 
-        fun <S, T> setImpressionRecyclerView(category: String, recyclerView: RecyclerView, mapper: ((data: S) -> T)? = null) {
+        fun <S, T> setImpressionRecyclerView(
+            category: String,
+            recyclerView: RecyclerView,
+            mapper: ((data: S) -> T)? = null
+        ) {
             firstImpression = -1
             lastImpression = -1
 
@@ -321,9 +361,9 @@ class Tracker private constructor(): KoinComponent {
                             val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                             first = layoutManager.findFirstVisibleItemPosition()
                             last = layoutManager.findLastVisibleItemPosition()
-                        }
-                        else {
-                            val layoutManager = recyclerView.layoutManager as StaggeredGridLayoutManager
+                        } else {
+                            val layoutManager =
+                                recyclerView.layoutManager as StaggeredGridLayoutManager
                             first = layoutManager.findFirstVisibleItemPositions(null)[0]
                             last = layoutManager.findLastVisibleItemPositions(null)[0]
                         }
@@ -357,7 +397,12 @@ class Tracker private constructor(): KoinComponent {
             })
         }
 
-        private fun addImpression(recyclerView: RecyclerView, first: Int, end: Int, adapter: BaseRecyclerViewAdapter<*, *>) {
+        private fun addImpression(
+            recyclerView: RecyclerView,
+            first: Int,
+            end: Int,
+            adapter: BaseRecyclerViewAdapter<*, *>
+        ) {
             val l = mutableListOf<Any>()
             for (i in first until end + 1) {
                 val realPosition = i % adapter.list.size
@@ -371,8 +416,7 @@ class Tracker private constructor(): KoinComponent {
             val newData = ImpressionData(data = l, time = Date().time)
             if (recyclerView.tag == null) {
                 recyclerView.tag = listOf(newData)
-            }
-            else
+            } else
                 if (recyclerView.tag is List<*>) {
                     val list = (recyclerView.tag as List<ImpressionData>).toMutableList()
                     list.add(newData)
@@ -382,7 +426,12 @@ class Tracker private constructor(): KoinComponent {
                 }
         }
 
-        private fun addImpression(recyclerView: RecyclerView, first: Int, end: Int, adapter: BaseRecyclerView2) {
+        private fun addImpression(
+            recyclerView: RecyclerView,
+            first: Int,
+            end: Int,
+            adapter: BaseRecyclerView2
+        ) {
             val l = mutableListOf<Any>()
             for (i in first until end + 1) {
                 val realPosition = i % adapter.list.size
@@ -394,8 +443,7 @@ class Tracker private constructor(): KoinComponent {
             val newData = ImpressionData(data = l, time = Date().time)
             if (recyclerView.tag == null) {
                 recyclerView.tag = listOf(newData)
-            }
-            else
+            } else
                 if (recyclerView.tag is List<*>) {
                     val list = (recyclerView.tag as List<ImpressionData>).toMutableList()
                     list.add(newData)

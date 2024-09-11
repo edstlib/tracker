@@ -20,10 +20,11 @@ data class TrackerPageViewCore (
     val previousPage: String,
     @SerializedName("previous_page_urlpath")
     val previousPageUrlPath: String,
-
+    @SerializedName("service")
+    val service: String
 ) {
     companion object {
-        fun create(eventId: Long, pageName: String, pageId: String, previousPage: String, pageUrlPath: String, prevPageUrlPath: String) =
+        fun create(eventId: Long, pageName: String, pageId: String, previousPage: String, pageUrlPath: String, prevPageUrlPath: String, service: String) =
             TrackerPageViewCore(
                 eventName = "page_view",
                 eventTimeStamp = Date().time.toString(),
@@ -32,7 +33,8 @@ data class TrackerPageViewCore (
                 eventId = eventId,
                 pageViewId = pageId,
                 previousPage = previousPage,
-                previousPageUrlPath = prevPageUrlPath
+                previousPageUrlPath = prevPageUrlPath,
+                service = service
             )
         }
 }

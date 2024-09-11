@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import id.co.edtslib.tracker.Tracker
 import java.util.*
 
-data class TrackerSubmissionCore (
+data class TrackerSubmissionCore(
     @SerializedName("event_name")
     val eventName: String,
     @SerializedName("event_timestamp")
@@ -24,11 +24,21 @@ data class TrackerSubmissionCore (
     @SerializedName("failed_reason")
     val eventFailedReason: String?,
     @SerializedName("details")
-    val details: Any?
+    val details: Any?,
+    @SerializedName("service")
+    val service: String
 ) {
     companion object {
-        fun create(eventId: Long, label: String, category: String, status: Boolean, reason: String?, details: Any? = null) =
-            TrackerSubmissionCore(eventName = "event_submission",
+        fun create(
+            eventId: Long,
+            label: String,
+            category: String,
+            status: Boolean,
+            reason: String?,
+            details: Any? = null,
+            service: String
+        ) = TrackerSubmissionCore(
+                eventName = "event_submission",
                 eventTimeStamp = Date().time.toString(),
                 pageViewId = Tracker.currentPageId,
                 eventId = eventId,
@@ -37,7 +47,8 @@ data class TrackerSubmissionCore (
                 pageName = Tracker.currentPageName,
                 eventStatus = if (status) "success" else "failed",
                 eventFailedReason = reason,
-                details = details
+                details = details,
+                service = service
             )
     }
 }
