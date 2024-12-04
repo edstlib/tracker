@@ -435,8 +435,10 @@ class Tracker private constructor() : KoinComponent {
             val l = mutableListOf<Any>()
             for (i in first until end + 1) {
                 val realPosition = i % adapter.list.size
-                if (adapter.list[realPosition].data != null) {
-                    l.add(adapter.list[realPosition].data!!)
+                if (realPosition >= 0 && realPosition < adapter.list.size) {
+                    if (adapter.list[realPosition].data != null) {
+                        l.add(adapter.list[realPosition].data!!)
+                    }
                 }
             }
 
