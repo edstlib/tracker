@@ -29,6 +29,9 @@ abstract class LocalDataSource<T>(private val sharedPreferences: SharedPreferenc
         catch (ignore: OutOfMemoryError) {
 
         }
+        catch (ignore: Exception) {
+
+        }
     }
 
     open fun get(): Flow<T> {
@@ -55,19 +58,24 @@ abstract class LocalDataSource<T>(private val sharedPreferences: SharedPreferenc
     }
 
     open fun getCached(): T? {
-        val json = sharedPreferences.getString(getKeyName(), null)
-        if (json.isNullOrEmpty()) return null
+        try {
+            val json = sharedPreferences.getString(getKeyName(), null)
+            if (json.isNullOrEmpty()) return null
 
-        if (expiredInterval() > 0) {
-            val lastUpdate = sharedPreferences.getLong(getKeyTimeName(), 0)
-            if (lastUpdate > 0) {
-                val expiredTime = lastUpdate + expiredInterval() * 1000
-                if (Date().time >= expiredTime) {
-                    return null
+            if (expiredInterval() > 0) {
+                val lastUpdate = sharedPreferences.getLong(getKeyTimeName(), 0)
+                if (lastUpdate > 0) {
+                    val expiredTime = lastUpdate + expiredInterval() * 1000
+                    if (Date().time >= expiredTime) {
+                        return null
+                    }
                 }
             }
-        }
 
-        return getValue(json)
+            return getValue(json)
+        }
+        catch (ignore: Exception) {
+            return null
+        }
     }
 }
