@@ -12,8 +12,7 @@ class TrackerRepository(
     private val configurationLocalSource: ConfigurationLocalSource
 ) : ITrackerRepository {
     override fun createSession() = flow {
-        val sessionId = String.format("%s-%d", UUID.randomUUID().toString(),
-            Date().time)
+        val sessionId = UUID.randomUUID().toString()
         var configuration = configurationLocalSource.getCached()
         if (configuration == null) {
             configuration = Configuration(sessionId, 0L, null)
